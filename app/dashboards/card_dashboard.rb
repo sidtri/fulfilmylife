@@ -13,6 +13,9 @@ class CardDashboard < Administrate::BaseDashboard
     sub_title: Field::String,
     total_time: Field::String,
     content: Field::Text,
+    tag: Field::EnumField,
+    references: Field::String,
+    
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -36,6 +39,7 @@ class CardDashboard < Administrate::BaseDashboard
     :title,
     :sub_title,
     :total_time,
+    :tag,
     :content,
     :created_at,
     :updated_at,
@@ -48,6 +52,7 @@ class CardDashboard < Administrate::BaseDashboard
     :title,
     :sub_title,
     :total_time,
+    :tag,
     :content,
   ].freeze
 

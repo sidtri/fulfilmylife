@@ -1,0 +1,6 @@
+<div class="card-header <%= @card.tag %>">
+	<h3><%= @card.title %></h3>
+	<p><%= @card.sub_title %></p>
+</div>
+<p><%=raw @card.parsed_content %></p>
+<%= link_to "Completed", progresses_path(card_id: @card.id), method: :post %>

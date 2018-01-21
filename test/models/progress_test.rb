@@ -1,22 +1,17 @@
 # == Schema Information
 #
-# Table name: cards
+# Table name: progresses
 #
 #  id         :integer          not null, primary key
-#  title      :string
-#  sub_title  :string
-#  total_time :string
-#  content    :string
+#  user_id    :integer
+#  card_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  tag        :integer
-#  slug       :string
-#  references :string
 #
 
 require 'test_helper'
 
-class CardTest < ActiveSupport::TestCase
+class ProgressTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

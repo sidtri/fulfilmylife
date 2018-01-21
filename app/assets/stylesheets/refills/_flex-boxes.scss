@@ -1,3 +1,12 @@
+@mixin my-background-mixin($mbg-color) {
+  border-top: 6px solid $mbg-color;
+
+  &:focus,
+  &:hover {
+     background-color: transparentize($mbg-color, 0.9);
+  }
+}
+
 .flex-boxes {
   $base-border-radius: 3px !default;
   $base-background-color: white !default;
@@ -38,17 +47,18 @@
     text-decoration: none;
     transition: all 0.2s ease-in-out;
 
-    @for $i from 1 to 7 { // assign colors from $flex-box-top-colors list
-      &:nth-child(#{$i}) {
-        $color-from-list: nth($flex-box-top-colors, $i);
-        border-top: 6px solid $color-from-list;
+    // @for $i from 1 to 7 { // assign colors from $flex-box-top-colors list
+    //   &:nth-child(#{$i}) {
+    //     $color-from-list: nth($flex-box-top-colors, $i);
+    //     border-top: 6px solid $color-from-list;
 
-        &:focus,
-        &:hover {
-          background-color: transparentize($color-from-list, 0.9);
-        }
-      }
-    }
+    //     &:focus,
+    //     &:hover {
+    //       background-color: transparentize($color-from-list, 0.9);
+    //     }
+    //   }
+    // }
+
 
     img {
       display: block;
@@ -68,6 +78,18 @@
       line-height: 1.5em;
       margin: auto;
     }
+  }
+
+  .pushup {
+    @include my-background-mixin($pushup);
+  }
+
+  .habit {
+   @include my-background-mixin($habit); 
+  }
+
+  .survey {
+    @include my-background-mixin($survey);
   }
 
   .flex-box-big {

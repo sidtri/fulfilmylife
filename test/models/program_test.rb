@@ -1,22 +1,17 @@
 # == Schema Information
 #
-# Table name: cards
+# Table name: programs
 #
 #  id         :integer          not null, primary key
-#  title      :string
-#  sub_title  :string
-#  total_time :string
-#  content    :string
+#  name       :string
+#  period     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  tag        :integer
-#  slug       :string
-#  references :string
 #
 
 require 'test_helper'
 
-class CardTest < ActiveSupport::TestCase
+class ProgramTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

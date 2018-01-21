@@ -1,0 +1,21 @@
+.grid-box {
+   @include grid-container;
+}
+
+.grid-column-3 {
+	@include grid-column(3);
+}
+
+.grid-column-6 {
+	@include grid-column(6);
+}
+
+
+// Type form 
+iframe .text {
+	display: none !important;
+}
+
+iframe .button-wrapper a[target="_blank"] {
+	display: none;
+}
