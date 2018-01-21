@@ -10,6 +10,20 @@
 	@include grid-column(6);
 }
 
+.content {
+  width: 800px;
+  max-width: 95%;
+  margin: 0px auto;
+}
+
+.center {
+  margin: 0px auto;
+  text-align: center;
+}
+
+.mb30 {
+  margin-bottom: 30px;
+}
 
 // Type form 
 iframe .text {

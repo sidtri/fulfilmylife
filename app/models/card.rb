@@ -23,9 +23,4 @@ class Card < ApplicationRecord
 	def to_param
 		id.to_s
 	end
-
-	def parsed_content
-		markdown = Redcarpet::Markdown.new
-		markdown.render(self.content)
-	end
 end

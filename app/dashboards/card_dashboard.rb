@@ -13,6 +13,7 @@ class CardDashboard < Administrate::BaseDashboard
     sub_title: Field::String,
     total_time: Field::String,
     content: Field::Text,
+    parsed_content: Field::Hidden,
     tag: Field::EnumField,
     references: Field::String,
     
@@ -54,6 +55,7 @@ class CardDashboard < Administrate::BaseDashboard
     :total_time,
     :tag,
     :content,
+    :parsed_content
   ].freeze
 
   # Overwrite this method to customize how cards are displayed

@@ -41,9 +41,9 @@ and renders all form fields for a resource's editable attributes.
   </div>
 <% end %>
 
-<%= javascript_include_tag 'plugins/simple_mde' %>
+<%= javascript_include_tag 'administrate' %>
 <script>
-  function markdown_editor(element) {
+  function markdown_editor(element_name) {
 
       var sm = new SimpleMDE({
           autofocus: true,
@@ -52,7 +52,7 @@ and renders all form fields for a resource's editable attributes.
               bold: "__",
               italic: "_"
           },
-          element: document.getElementById("message"),
+          element: document.getElementById(element_name),
           forceSync: true,
           indentWithTabs: false,
           insertTexts: {
@@ -94,13 +94,13 @@ and renders all form fields for a resource's editable attributes.
           tabSize: 4,
       });
       
-      element.parent("form").get(0).on('submit', function(){
+      $("input[name='commit']").click(function(e){
         sm.togglePreview();
-        $('#parse_message').val($('.editor-preview').html());
+        $('#card_parsed_content').val($('.editor-preview').html());
       })
   }
   (function() {
-    
+    markdown_editor("card_content");
      // your page initialization code here
      // the DOM will be available here
 

@@ -2,5 +2,9 @@
 	<h3><%= @card.title %></h3>
 	<p><%= @card.sub_title %></p>
 </div>
-<p><%=raw @card.parsed_content %></p>
-<%= link_to "Completed", progresses_path(card_id: @card.id), method: :post %>
+<div class="content">
+  <p><%=raw @card.parsed_content %></p>
+</div>
+<div class="center mb30">
+  <%= link_to "I've Read this lesson", progresses_path(card_id: @card.id), type: "button", method: :post %>
+</div>

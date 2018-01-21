@@ -12,7 +12,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require plugins/simple_mde
-//= require refills/parallax
-//= require_tree .

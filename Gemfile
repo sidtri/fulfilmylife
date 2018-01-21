@@ -53,6 +53,7 @@ gem "neat"
 gem "bitters"
 gem "refills", group: :development
 gem "administrate"
+gem 'administrate-field-hidden'
 
 
 group :development, :test do
