@@ -1,0 +1,28 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$cards-layout-grid: (
+  columns: 1,
+  gutter: 2rem,
+);
+
+$cards-layout-grid--tablet-up: (
+  columns: 4,
+  gutter: 2rem,
+  media: "(min-width: 768px)",
+);
+
+
+.cards-layout {
+  @include grid-container;
+}
+
+.card-wrapper {
+  @include grid-column(1, $cards-layout-grid);
+  margin-bottom: 2rem;
+
+  @include grid-media($cards-layout-grid--tablet-up) {
+    @include grid-column(2);
+  }
+}

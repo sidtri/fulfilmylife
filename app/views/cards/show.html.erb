@@ -5,6 +5,4 @@
 <div class="content">
   <p><%=raw @card.parsed_content %></p>
 </div>
-<div class="center mb30">
-  <%= link_to "I've Read this lesson", progresses_path(card_id: @card.id), type: "button", method: :post %>
-</div>
+<%= render @card.tag  if current_user %>
