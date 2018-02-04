@@ -16,6 +16,8 @@ $cards-layout-grid--tablet-up: (
 
 .cards-layout {
   @include grid-container;
+  max-width: 890px;
+  margin: 0px auto;
 }
 
 .card-wrapper {
