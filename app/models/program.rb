@@ -10,4 +10,8 @@
 #
 
 class Program < ApplicationRecord
+  has_many :cards
+  has_many :pushups, -> { cards.where(tag: "pushup") }
+
+  has_and_belongs_to_many :users
 end

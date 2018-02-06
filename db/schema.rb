@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180121125440) do
+ActiveRecord::Schema.define(version: 20180206162045) do
 
   create_table "cards", force: :cascade do |t|
     t.string   "title"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20180121125440) do
     t.string   "slug"
     t.string   "references"
     t.text     "parsed_content"
+    t.integer  "days"
+    t.integer  "program_id"
+    t.index ["program_id"], name: "index_cards_on_program_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -51,6 +54,13 @@ ActiveRecord::Schema.define(version: 20180121125440) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "programs_users", id: false, force: :cascade do |t|
+    t.integer "program_id"
+    t.integer "user_id"
+    t.index ["program_id"], name: "index_programs_users_on_program_id"
+    t.index ["user_id"], name: "index_programs_users_on_user_id"
+  end
+
   create_table "progresses", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "card_id"
@@ -58,6 +68,15 @@ ActiveRecord::Schema.define(version: 20180121125440) do
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_progresses_on_card_id"
     t.index ["user_id"], name: "index_progresses_on_user_id"
+  end
+
+  create_table "stats", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_stats_on_card_id"
+    t.index ["user_id"], name: "index_stats_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

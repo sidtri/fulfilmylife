@@ -20,6 +20,8 @@ class Card < ApplicationRecord
 
 	enum tag: [ :pushup, :habit, :survey ]
 
+  belongs_to :program
+
 	def to_param
 		id.to_s
 	end

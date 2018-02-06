@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
   def index
-  	@cards = Card.all
+  	if current_user
+      @cards = current_user.programs
+    end
   end
 end

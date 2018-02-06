@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: progresses
+# Table name: stats
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class Progress < ApplicationRecord
+class Stat < ApplicationRecord
   belongs_to :user
   belongs_to :card
 end

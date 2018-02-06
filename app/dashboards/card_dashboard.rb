@@ -12,6 +12,8 @@ class CardDashboard < Administrate::BaseDashboard
     title: Field::String,
     sub_title: Field::String,
     total_time: Field::String,
+    days: Field::Number,
+    program: Field::BelongsTo,
     content: Field::Text,
     parsed_content: Field::Hidden,
     tag: Field::EnumField,
@@ -29,7 +31,9 @@ class CardDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :title,
-    :sub_title,
+    :days,
+    :tag,
+    :program,
     :total_time,
   ].freeze
 
@@ -40,6 +44,8 @@ class CardDashboard < Administrate::BaseDashboard
     :title,
     :sub_title,
     :total_time,
+    :program,
+    :days,
     :tag,
     :content,
     :created_at,
@@ -53,6 +59,8 @@ class CardDashboard < Administrate::BaseDashboard
     :title,
     :sub_title,
     :total_time,
+    :days,
+    :program,
     :tag,
     :content,
     :parsed_content
