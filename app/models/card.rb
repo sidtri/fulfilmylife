@@ -22,6 +22,11 @@ class Card < ApplicationRecord
 
   belongs_to :program
 
+  scope :pushups, -> { where(tag: "pushup") }
+  scope :habits, -> { where(tag: "habit") }
+
+  has_many :stats
+
 	def to_param
 		id.to_s
 	end

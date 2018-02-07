@@ -1,6 +1,6 @@
 <% if current_user %>
 <div class="cards-layout">
-  <% current_user.cards.each do |card| %>
+  <% @cards.each do |card| %>
   <div class="card-wrapper">
     <div class="flex-boxes">
       <%= link_to card_path(card.friendly_id), class: "flex-box #{card.tag}", data: { turbolinks: false } do %>

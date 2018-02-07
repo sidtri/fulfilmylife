@@ -17,4 +17,5 @@ class User < ApplicationRecord
   has_many :stats
   has_and_belongs_to_many :programs
   has_many :cards, through: :programs
+
 end
