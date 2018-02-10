@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users
     resources :cards
     resources :programs
+    resources :categories
 
     root to: "users#index"
   end

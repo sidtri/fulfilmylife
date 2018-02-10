@@ -21,6 +21,7 @@ class Card < ApplicationRecord
 	enum tag: [ :pushup, :habit, :survey ]
 
   belongs_to :program
+  belongs_to :category
 
   scope :pushups, -> { where(tag: "pushup") }
   scope :habits, -> { where(tag: "habit") }
