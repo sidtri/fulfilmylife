@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require plugins/simple_mde
 //= require refills/parallax
+//= require recurring_select
 //= require_tree .

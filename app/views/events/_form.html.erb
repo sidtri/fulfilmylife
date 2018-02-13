@@ -1,0 +1,23 @@
+<div class="grid-box">
+  <div class="grid-column-6">
+    <%= simple_form_for(event) do |f| %>
+
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+      <%= f.input :start_time, html5: true %>
+
+      <div class="field">
+        <%= f.label :recurring %>
+        <%= f.select_recurring :recurring, nil, allow_blank: true %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
