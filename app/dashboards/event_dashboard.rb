@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class CardDashboard < Administrate::BaseDashboard
+class EventDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,20 +8,14 @@ class CardDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    card: Field::BelongsTo,
     id: Field::Number,
-    title: Field::String,
-    sub_title: Field::String,
-    total_time: Field::String,
-    days: Field::Number,
-    category: Field::BelongsTo,
-    program: Field::BelongsTo,
-    content: Field::Text,
-    parsed_content: Field::Hidden,
-    tag: Field::EnumField,
-    references: Field::String,
-    
+    name: Field::String,
+    start_time: Field::DateTime,
+    recurring: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    end_time: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -30,50 +24,40 @@ class CardDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :card,
     :id,
-    :title,
-    :days,
-    :tag,
-    :program,
-    :category,
-    :total_time,
+    :name,
+    :start_time,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
+    :card,
     :id,
-    :title,
-    :sub_title,
-    :total_time,
-    :program,
-    :category,
-    :days,
-    :tag,
-    :content,
+    :name,
+    :start_time,
+    :recurring,
     :created_at,
     :updated_at,
+    :end_time,
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :title,
-    :sub_title,
-    :total_time,
-    :days,
-    :program,
-    :category,
-    :tag,
-    :content,
-    :parsed_content
+    :card,
+    :name,
+    :start_time,
+    :recurring,
+    :end_time,
   ].freeze
 
-  # Overwrite this method to customize how cards are displayed
+  # Overwrite this method to customize how events are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(card)
-    "#{card.title}"
+  def display_resource(event)
+    "#{event.name}"
   end
 end

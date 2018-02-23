@@ -22,6 +22,7 @@ class Card < ApplicationRecord
 
   belongs_to :program
   belongs_to :category
+  has_many :events
 
   scope :pushups, -> { where(tag: "pushup") }
   scope :habits, -> { where(tag: "habit") }

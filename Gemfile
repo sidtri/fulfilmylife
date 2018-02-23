@@ -24,6 +24,7 @@ gem 'coffee-rails', '~> 4.2'
 # Debugging
 gem 'pry'
 gem 'pry-rails'
+gem 'dotenv-rails'
 
 group :development do
   gem 'annotate'

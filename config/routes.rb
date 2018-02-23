@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :cards
     resources :programs
     resources :categories
+    resources :card_templates
+    resources :events
 
     root to: "users#index"
   end

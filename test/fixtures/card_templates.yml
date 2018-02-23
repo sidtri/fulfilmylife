@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  card: one
+  event: one
+  program: one
+
+two:
+  name: MyString
+  card: two
+  event: two
+  program: two

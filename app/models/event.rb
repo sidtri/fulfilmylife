@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
 	serialize :recurring, Hash
 
+	belongs_to :card
+
 	def recurring=(value)
 		if RecurringSelect.is_valid_rule?(value)
 			r = RecurringSelect.dirty_hash_to_rule(value)

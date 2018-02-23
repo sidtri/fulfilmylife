@@ -14,7 +14,8 @@ class ProgramDashboard < Administrate::BaseDashboard
     period: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    users: Field::HasMany
+    users: Field::HasMany,
+    card_templates: Field::HasMany,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -24,15 +25,17 @@ class ProgramDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :cards,
+    :card_templates,
     :id,
     :name,
-    :period,
+    :period
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :cards,
+    :card_templates,
     :id,
     :name,
     :period,
@@ -46,13 +49,15 @@ class ProgramDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :name,
-    :period
+    :period,
+    :users,
+    :card_templates
   ].freeze
 
   # Overwrite this method to customize how programs are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(program)
-  #   "Program ##{program.id}"
-  # end
+  def display_resource(program)
+    "#{program.name}"
+  end
 end
