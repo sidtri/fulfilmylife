@@ -25,6 +25,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'pry'
 gem 'pry-rails'
 gem 'dotenv-rails'
+gem 'google-api-client', '~> 0.11'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'sidekiq'
 
 group :development do
   gem 'annotate'
