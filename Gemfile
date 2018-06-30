@@ -86,3 +86,5 @@ gem 'simple_form'
 gem 'simple_calendar'
 gem 'recurring_select', github: "RundownApp/recurring_select"
 gem 'questionnaire_engine', '0.1', :require=>"survey"
+gem "selectize-rails"
+gem 'lodash-rails'

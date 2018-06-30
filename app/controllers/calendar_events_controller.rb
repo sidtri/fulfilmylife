@@ -50,7 +50,7 @@ class CalendarEventsController < GoogleConsole::BaseController
           events << event
       end
 
-      calendar = AddToGoogleCalendar.new
+      calendar = AddEventsToGcal.new
       calendar.call(events)
 
       flash[:notice] = "Events added to your calendar list"

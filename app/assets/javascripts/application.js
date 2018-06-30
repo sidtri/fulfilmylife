@@ -14,6 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require plugins/simple_mde
+//= require selectize
+//= require lodash
 //= require refills/parallax
 //= require recurring_select
 //= require_tree .
+
+$(document).ready(function(){
+  $("select").filter(function( index ) {
+    return $($(this)[index]).prop("class") != "recurring_select"
+  }).selectize();
+
+})

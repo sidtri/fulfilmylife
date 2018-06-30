@@ -1,9 +1,7 @@
 class StatsController < ApplicationController
   def create
-  	stat = current_user.stats.build
-  	stat.card_id = params[:card_id]
 
-  	if stat.save
+  	if create_stat(current_user, params[:card_id])
   		redirect_to root_path
   	else
   		redirect_to :back

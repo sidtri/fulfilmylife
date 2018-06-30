@@ -29,9 +29,11 @@ class NewSurveysController < ApplicationController
      @new_surveys << NewSurvey.new(card_id: params[:card_id], question_id: key, answer: val)
     end
 
+    create_stat(current_user, params[:card_id])
+
     respond_to do |format|
       if @new_surveys.each(&:save)
-        format.html { redirect_to root_path, notice: 'New survey was successfully created.' }
+        format.html { redirect_to root_path, notice: "Awesome! You did completed what we call it difficult card." }
         format.json { render :show, status: :created, location: @new_survey }
       else
         format.html { render :new }
