@@ -13,3 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require plugins/simple_mde
+//= require cocoon
+

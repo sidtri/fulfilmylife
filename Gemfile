@@ -59,6 +59,10 @@ gem "bitters"
 gem "refills", group: :development
 gem "administrate"
 gem 'administrate-field-hidden'
+gem 'cocoon'
+# gem "administrate-field-nested_has_many"
+gem 'wisper', '2.0.0'
+
 
 
 group :development, :test do
@@ -81,3 +85,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'simple_form'
 gem 'simple_calendar'
 gem 'recurring_select', github: "RundownApp/recurring_select"
+gem 'questionnaire_engine', '0.1', :require=>"survey"

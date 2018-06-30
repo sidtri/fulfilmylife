@@ -14,6 +14,13 @@
   </ul>
 </div>
 <div class="content">
-  <p><%=raw @card.parsed_content %></p>
+  <% if @card.tag == "survey" %>
+    <%= simple_form_for @survey do |f| %>
+      <%= hidden_field_tag "card_id", @card.id %>
+      <p><%=raw @card.parsed_content %></p>
+    <% end %>
+  <% else %>
+    <p><%=raw @card.parsed_content %></p>
+  <% end %>
 </div>
 <%= render @card.tag  if current_user %>

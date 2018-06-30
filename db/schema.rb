@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227061626) do
+ActiveRecord::Schema.define(version: 20180628160013) do
 
   create_table "card_templates", force: :cascade do |t|
     t.string   "name"
@@ -72,11 +72,21 @@ ActiveRecord::Schema.define(version: 20180227061626) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "new_surveys", force: :cascade do |t|
+    t.integer  "card_id"
+    t.string   "question_id"
+    t.string   "answer"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["card_id"], name: "index_new_surveys_on_card_id"
+  end
+
   create_table "programs", force: :cascade do |t|
     t.string   "name"
     t.string   "period"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "active",     default: false
   end
 
   create_table "programs_users", id: false, force: :cascade do |t|
@@ -104,6 +114,85 @@ ActiveRecord::Schema.define(version: 20180227061626) do
     t.index ["user_id"], name: "index_stats_on_user_id"
   end
 
+  create_table "survey_answers", force: :cascade do |t|
+    t.integer  "attempt_id"
+    t.integer  "question_id"
+    t.integer  "option_id"
+    t.boolean  "correct"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "option_text"
+    t.integer  "option_number"
+    t.integer  "predefined_value_id"
+  end
+
+  create_table "survey_attempts", force: :cascade do |t|
+    t.string  "participant_type"
+    t.integer "participant_id"
+    t.integer "survey_id"
+    t.boolean "winner"
+    t.integer "score"
+  end
+
+  create_table "survey_options", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "weight",          default: 0
+    t.string   "text"
+    t.boolean  "correct"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "locale_text"
+    t.integer  "options_type_id"
+    t.string   "head_number"
+  end
+
+  create_table "survey_predefined_values", force: :cascade do |t|
+    t.string   "head_number"
+    t.string   "name"
+    t.string   "locale_name"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "survey_questions", force: :cascade do |t|
+    t.string   "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "section_id"
+    t.string   "head_number"
+    t.text     "description"
+    t.string   "locale_text"
+    t.string   "locale_head_number"
+    t.text     "locale_description"
+    t.integer  "questions_type_id"
+    t.boolean  "mandatory",          default: false
+  end
+
+  create_table "survey_sections", force: :cascade do |t|
+    t.string   "head_number"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "survey_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "locale_head_number"
+    t.string   "locale_name"
+    t.text     "locale_description"
+  end
+
+  create_table "survey_surveys", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "attempts_number",    default: 0
+    t.boolean  "finished",           default: false
+    t.boolean  "active",             default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "locale_name"
+    t.text     "locale_description"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
@@ -116,6 +205,7 @@ ActiveRecord::Schema.define(version: 20180227061626) do
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
     t.string   "name"
+    t.string   "gc_session_id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end

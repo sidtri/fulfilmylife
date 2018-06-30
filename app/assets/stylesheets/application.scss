@@ -1,6 +1,7 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "base/base";
+@import "base/flashes";
 @import "resets/buttons";
 @import "plugins/simple_mde";
 @import "refills/flex-boxes";
@@ -19,13 +20,25 @@
 }
 
 .card-header.pushup {
-	background: $pushup;
+	color: $pushup;
+	border: 1px dashed $pushup;
+	background: white;
 }
 
 .card-header.habit {
-	background: $habit;
+	color: $habit;
+	border: 1px dashed $habit;
+	background: white;
 }
 
 .card-header.survey {
-	background: $survey;
+	color: $survey;
+	border: 1px dashed $survey;
+	background: white;
 }
+
+
+
+
+
+// Survey

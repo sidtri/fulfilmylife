@@ -1,0 +1,1 @@
+# Wisper.subscribe(CreateOrderState.new)

@@ -1,10 +1,22 @@
 require 'sidekiq/web'
 
+Rails.application.routes.default_url_options[:host] = ENV["default_url_options_host"]
+
 Rails.application.routes.draw do
 
+  resources :new_surveys
   mount Sidekiq::Web => '/sidekiq'
 
-  resources :calendar_events
+  resources :calendar_events do 
+    collection do 
+      get :share
+    end
+  end
+
+  namespace :contests do 
+    resources :surveys
+    resources :attempts 
+  end
   # get '/redirect', to: 'calendar_events#redirect', as: 'redirect'
   namespace :google_console do
     get '/callback', to: 'base#callback', as: 'callback'

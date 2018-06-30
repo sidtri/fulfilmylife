@@ -13,6 +13,7 @@
 
 class User < ApplicationRecord
   include Clearance::User
+  has_surveys
 
   has_many :stats
   has_and_belongs_to_many :programs

@@ -3,15 +3,25 @@ require 'google/apis/calendar_v3'
 
 class CalendarEventsController < GoogleConsole::BaseController
 
-  before_filter :authenticate_calendar
+  before_filter :get_service
+
+    def remove
+    end
+
+    def share
+        @service.insert_acl('primary',
+            Google::Apis::CalendarV3::AclRule.new(role: 'reader', 
+                scope: Google::Apis::CalendarV3::AclRule::Scope.new(value: current_user.email, 
+                    type: 'user', id: "user:#{current_user.email}", kind: "calendar#aclRule")
+                )
+            )
+        render text: "success"
+    end
 
 	def index
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = current_client
+     today = DateTime.now
 
-    today = DateTime.now
-
-    # events
+      # events
       @programs = current_user.programs
 
       card_ids = @programs.collect do |program|
@@ -22,28 +32,35 @@ class CalendarEventsController < GoogleConsole::BaseController
       end.flatten.uniq
 
       @cards = Card.includes(:category).where("id IN (?)", card_ids).where.not(id: current_user.stats.pluck(:card_id))
-    # end
 
-    @cards.each do |card|
-      event = Google::Apis::CalendarV3::Event.new({
-        start: Google::Apis::CalendarV3::EventDateTime.new(date_time: today + 1.hour),
-        end: Google::Apis::CalendarV3::EventDateTime.new(date_time: today + 1.hour + 5.minutes),
-        summary: card.title,
-        colorId: card.category.try(:color),
-        reminders: {
-          useDefault: true
-        },
-        description: card.sub_title
-      })
-      begin
-        service.insert_event('primary', event)
-  	  rescue Google::Apis::AuthorizationError
-        binding.pry
+      events = []
+      @cards.each do |card|
+          card_id = card_id.to_s
+          event = Google::Apis::CalendarV3::Event.new({
+            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: today + 1.hour),
+            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: today + 1.hour + 5.minutes),
+            summary: "#{card.title}",
+            color_id: rand(1..10).to_s,
+            reminders: {
+              useDefault: true
+            },
+            description: "Mark as complete: #{card_url(card.slug)}. \n #{card.sub_title}"
+          })
+
+          events << event
       end
-    end
 
-    flash[:notice] = "Events added to your calendar list"
-    redirect_to root_path
+      calendar = AddToGoogleCalendar.new
+      calendar.call(events)
+
+      flash[:notice] = "Events added to your calendar list"
+      redirect_to root_path
 	end
+
+    private
+        def get_service
+            @service = Google::Apis::CalendarV3::CalendarService.new
+            authorize(@service)
+        end
 
 end

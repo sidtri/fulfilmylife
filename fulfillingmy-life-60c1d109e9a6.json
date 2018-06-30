@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fulfillingmy-life-202608",
+  "private_key_id": "60c1d109e9a6b45e061b1c385d31cc17c5994c02",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDxV6HQINSpHU4y\nRrjFULdzjW8jivH/6FvQ9B+bltfJpON3vZlmjkCvrxu8nvpuG1Kqf94Mi1q1agLr\n5hIpBix/8livFbmLne/hE/lxV0S5fdBbwyYVXHRHGyZTgyqmUR/4VWKEbKlkZEO8\n/D3FP/VuhrnVuU4QdOvqSiQoRDFPOF5g2AiIqRyiTcheFxHiYeUlR0Y8UBLxBpwP\nrt/iTkQBrWQ3R85Yso8V6yu2e7vdG3fyT3E+dxz1BdO11GVAI9R4QkE4OFURkFUu\nySwzWh5XrQxgCxYWC+xmWNiZPorxPOfJtqL/QFLkQ0q+H4J7N77v5UUbiER/ZckU\ngureI/PDAgMBAAECggEARw9e4RmxlAPBcPM61zovcdIMjcINBCUF183xeo3dBo3K\nvghw4O30pOXhvFVw9jeMTRBuMHJdqHnI1218HmEnfBq+uvqiEbZUmYiYkyM3ZIhj\nb4lTrsl0oTUgwUknJyZOy/9UDRqze5A8E6qPg4MUAFGh6QhxME5E4kynPcXqYODt\nIoMRVuoTzYE++Jycz6Qd7d/4Gnq3/cjlpZBz6R+Kp8GHSO1j3snnrR6U5e17XhQZ\nXA95DA6J3o9vCjjbyCICV05GHJymmdRyIpGkRnjYYMXwPTmmhHWbIFS/1InwxQbg\n9YVqNDbuNTBryp5/mwPS/sVsaC/44QC52/IGVL4IiQKBgQD7iPLUqhCjQBwYZToi\nQDqtf/9DC2yTuH3vxR8gQOjQCfGg/jvzvkh4SpHxmy8lTrou6PVXGqyOTcnYfMGR\n4AX4oPUslV4a2dHXjtMqscESCNslvEKX1wdKRl1yI8LZFwZy7DRaujHjVvHtf3v/\nMzZFEoxrtnUixBMq7HYkwnaqywKBgQD1oF10G11Xf9uRNWky5Fkec83+IWORJpKC\n2nauecT50VL0mhbteP33XYRiF5si1JFU0LE6vE9pFmDZGVq0UX4wMxJX9ZRvc1FA\n6OkekLoT0LPx1ayEZoLkEwWsUTp8K1fNa+iBagWq4rNHbwt+bqA86paYstGljK6y\nZHfAo4Jj6QKBgQDA6JkDzKIR8dsaQphBKG1YHvBQJPTSng3H07A5dk6XLuknhZPJ\nLcg6qUYgu9l+jVBxJazzbrukL7h71cJG9D7gHeGqnaucgC1VWm5NMiJWiIA6ApY4\nCWvH5QtJvG91OxlxDgJhCqe0KTxF3x3j7QzUEJOtEDPpw+LHaq55JsMH3QKBgCav\nlUh+LttjJd/e+6yqTmb/ckg+VgI8gwLdCag9QYrfLyObSVUpo0Zckkco1KRNun4T\nSHapxhAVGDfZSHHyC9/ni1ITOce77+Y7SMwpm0UXr9+8+aj4xFDLti8HtCBuayvN\nfRc07aOWhQoRMUw+fDpb8FAoieB7IeCy9jF/D0BRAoGBAOr7jqp8rw+HhG3h0X1p\nMpxM13BDNzBpUJDV4l3swQb0+8T3knpA3IqwE24Ohn5R1pWMYw6MZuRg3H87dBT9\nCKJFkMY3rln+LHx2VUKFbrJHUbgO/zG/DJQ8b7Mi123voGysVd/uiJDWPn2MtXyN\n0POQHgtn5DW98B0vdwEi1pYg\n-----END PRIVATE KEY-----\n",
+  "client_email": "weight-loss@fulfillingmy-life-202608.iam.gserviceaccount.com",
+  "client_id": "102161162928837883198",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/weight-loss%40fulfillingmy-life-202608.iam.gserviceaccount.com"
+}

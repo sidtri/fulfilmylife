@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "health-202607",
+  "private_key_id": "ef6aadd51ee03f706e75dc33b6ee5ca8c2e6b2a8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDcLPU3J17eDsqo\nJh5+sk5hdoHNXKSNdiDCGwascpfYlyRwrWiJWg1tzCYF/QrhBbdZSL0oNSLwd0OU\ntz+lidaqkpuOrMffMMQq1qttUNO7gHF6/gDor334bzrx7UnuxDuQFcKkWVX70c6a\nUFMelm4KmZXCU4uyz1HYfmraxileaRAmrg1j456S0A91xL2LA9JXafZqC3DxFMCD\nYRQrpKstG9/4X2C+4VzYTiRZxJCcIDV2CabXd6jQUbjmVxkwGSmMi4reu8O2tIPT\nJBs8Qvms/UGupue430t1U7OiAtRwVFjkIeP6UU3s4N/HW9Qq0mBIZ9M6o75ZBDTQ\nO2iZ0aERAgMBAAECggEAPz5mvY4AkRZ8neo9LjV3kEVjKaMn3T6GUFtFAnn0JhHc\nNMWK1pFYdCaE8Ylq+5IRxYLAWvFQdPQ9JFWy4ZEDaYGtT0FQNEskvg1ltoPWHfDa\nJ/MYPb5TF+6TZvS7HOufFFc7zsueiDQO/YJ/LbUWLNNLEkO/SACHSQGfHfJ35ZcN\n2DySjraLcVQvQo51dppHqrIqkHoa6C7PFoM/FA8mCuWC1PzGtBJxtKIwOqjreqRv\nom5kDZmacyz1doKNEghWPyfWHE+elGNxcKpjAVb2sw6LfNdhu4Wz+UbMUzx8eKST\nzIuKs8951v9S8RpF5JgTT6P2bI8wQsrF3F+TCNBuBQKBgQDvMJgamCvlsHXGhDz3\n6QPhlFlK4Uu0Gq5aOqPSvPwBhDcRqw0ExJ5H8o+psIXPnm9DZX46+/YAa21B50oU\nOG9zV+h2cYiXDhrbOAPLfL5oi/robNs8axYcgYOT40+oprCPvf2DmtsOD7KPly4/\n69ajHa/f5qU79Lquu7M/LqSshwKBgQDrpkSU/IXaT+Wt/LLr0VrRigUUiVMapxRd\n+Ic4DvXEb3i2K7XhaZS4FWjnJFO8Mk5/xHHST90Yq4GUCYkTGjZZILalIX+PqKQF\n+YvGWSHBqcwtO2RrEFOLvPw0HZwEGqzZqAxRCsdmKm8q2nKKE2msjYZTvMr4yMvm\nx78RmgSDpwKBgEYE8rHuVANkOcYIVhS4qMMze0Q5WcD6gom1WtnJKviCrOBGM4Ru\nzmr/beDd5P4XQjj3kBFSSvxqdkxxmbT7pFyeolVx/OtDXMdJyYqbFN5kA+pgW3l/\nW7SykUMMqvgS++LIWltZTMD8BWiVeBuMPYP4n9Cqozo+9RtLpThcviYnAoGBAIzC\nfZbtHFtifFSobIvWO0SNCCnTOZPjF5RmPwcqUH3tBBL1Gyixc4deKpJfLbFt71v8\nkOzKjcwNrlIqO/nwH2Sv2Mncr6C1YHy9KlPpq/NNpMuj/YDCeNUwpwnOYgJFmNhO\nvESwhpktYcgcQmzd2bKbuxBL5oYjE0EgMa6m7GljAoGAS7+2b6P5lGdQ6uyy8/27\nunPIyH6+28KcU1QoOkfdmRFp0YYJLG61HKcDq68Pce8mggdOR0Sh9DMNydmOhP86\n9MlEpliZzByFuldvdjMjZKqzXtUNOFfzidsWhNSdezhcwRDkUZE1pwhzM6R87ixM\nYY+2QV0ZaD6AaoaFznmN+ys=\n-----END PRIVATE KEY-----\n",
+  "client_email": "weight-loss@health-202607.iam.gserviceaccount.com",
+  "client_id": "113196353139549762343",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/weight-loss%40health-202607.iam.gserviceaccount.com"
+}

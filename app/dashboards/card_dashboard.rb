@@ -19,9 +19,9 @@ class CardDashboard < Administrate::BaseDashboard
     parsed_content: Field::Hidden,
     tag: Field::EnumField,
     references: Field::String,
-    
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    card_templates: Field::NestedHasMany.with_options(skip: :name)
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -51,6 +51,7 @@ class CardDashboard < Administrate::BaseDashboard
     :days,
     :tag,
     :content,
+    :card_templates,
     :created_at,
     :updated_at,
   ].freeze
@@ -67,7 +68,8 @@ class CardDashboard < Administrate::BaseDashboard
     :category,
     :tag,
     :content,
-    :parsed_content
+    :parsed_content,
+    :card_templates
   ].freeze
 
   # Overwrite this method to customize how cards are displayed

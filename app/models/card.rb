@@ -23,6 +23,8 @@ class Card < ApplicationRecord
   belongs_to :program
   belongs_to :category
   has_many :events
+  has_many :card_templates
+  accepts_nested_attributes_for :card_templates
 
   scope :pushups, -> { where(tag: "pushup") }
   scope :habits, -> { where(tag: "habit") }

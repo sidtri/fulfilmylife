@@ -12,6 +12,7 @@ class ProgramDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     period: Field::String,
+    active: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     users: Field::HasMany,
@@ -28,7 +29,8 @@ class ProgramDashboard < Administrate::BaseDashboard
     :card_templates,
     :id,
     :name,
-    :period
+    :period,
+    :active
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -39,6 +41,7 @@ class ProgramDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :period,
+    :active,
     :created_at,
     :updated_at,
     :users
@@ -50,6 +53,7 @@ class ProgramDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :name,
     :period,
+    :active,
     :users,
     :card_templates
   ].freeze
