@@ -4,6 +4,13 @@ Rails.application.routes.default_url_options[:host] = ENV["default_url_options_h
 
 Rails.application.routes.draw do
 
+  get '/redirect', to: 'google_sessions#redirect', as: 'redirect'
+  get '/callback', to: 'google_sessions#callback', as: 'callback'
+  get '/calendars', to: 'google_sessions#calendars', as: 'calendars'
+  get '/events/:calendar_id', to: 'google_sessions#events', as: 'events', calendar_id: /[^\/]+/
+  post '/events/:calendar_id', to: 'google_sessions#new_event', as: 'new_event', calendar_id: /[^\/]+/
+
+
   resources :new_surveys
   mount Sidekiq::Web => '/sidekiq'
 

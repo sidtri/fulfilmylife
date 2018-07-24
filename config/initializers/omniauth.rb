@@ -24,16 +24,16 @@ module Signet
       #   end
       # end
 
-      def redirect_uri=(new_redirect_uri)
-        new_redirect_uri = build_uri(uri)
+      # def redirect_uri=(new_redirect_uri)
+      #   new_redirect_uri = build_uri(uri)
 
-        #TODO - Better solution to allow google postmessage flow. For now, make an exception to the spec.
-        if new_redirect_uri == nil|| new_redirect_uri.absolute? || uri_is_postmessage?(new_redirect_uri) || uri_is_oob?(new_redirect_uri)
-          @redirect_uri = new_redirect_uri
-        else
-          raise ArgumentError, "Redirect URI must be an absolute URI."
-        end
-      end
+      #   #TODO - Better solution to allow google postmessage flow. For now, make an exception to the spec.
+      #   if new_redirect_uri == nil|| new_redirect_uri.absolute? || uri_is_postmessage?(new_redirect_uri) || uri_is_oob?(new_redirect_uri)
+      #     @redirect_uri = new_redirect_uri
+      #   else
+      #     raise ArgumentError, "Redirect URI must be an absolute URI."
+      #   end
+      # end
 
       def build_uri(uri)
         if uri.is_a?(Hash)

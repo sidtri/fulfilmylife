@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180628160013) do
+ActiveRecord::Schema.define(version: 20180724153034) do
 
   create_table "card_templates", force: :cascade do |t|
     t.string   "name"
@@ -206,6 +206,8 @@ ActiveRecord::Schema.define(version: 20180628160013) do
     t.datetime "oauth_expires_at"
     t.string   "name"
     t.string   "gc_session_id"
+    t.string   "access_token"
+    t.datetime "expires_in"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
