@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180724153034) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "card_templates", force: :cascade do |t|
     t.string   "name"
     t.integer  "card_id"
@@ -19,9 +22,9 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.integer  "program_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["card_id"], name: "index_card_templates_on_card_id"
-    t.index ["event_id"], name: "index_card_templates_on_event_id"
-    t.index ["program_id"], name: "index_card_templates_on_program_id"
+    t.index ["card_id"], name: "index_card_templates_on_card_id", using: :btree
+    t.index ["event_id"], name: "index_card_templates_on_event_id", using: :btree
+    t.index ["program_id"], name: "index_card_templates_on_program_id", using: :btree
   end
 
   create_table "cards", force: :cascade do |t|
@@ -38,8 +41,8 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.integer  "days"
     t.integer  "program_id"
     t.integer  "category_id"
-    t.index ["category_id"], name: "index_cards_on_category_id"
-    t.index ["program_id"], name: "index_cards_on_program_id"
+    t.index ["category_id"], name: "index_cards_on_category_id", using: :btree
+    t.index ["program_id"], name: "index_cards_on_program_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -57,7 +60,7 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.datetime "updated_at", null: false
     t.datetime "end_time"
     t.integer  "card_id"
-    t.index ["card_id"], name: "index_events_on_card_id"
+    t.index ["card_id"], name: "index_events_on_card_id", using: :btree
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -66,10 +69,10 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
     t.datetime "created_at"
-    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
   create_table "new_surveys", force: :cascade do |t|
@@ -78,7 +81,7 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.string   "answer"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["card_id"], name: "index_new_surveys_on_card_id"
+    t.index ["card_id"], name: "index_new_surveys_on_card_id", using: :btree
   end
 
   create_table "programs", force: :cascade do |t|
@@ -92,8 +95,8 @@ ActiveRecord::Schema.define(version: 20180724153034) do
   create_table "programs_users", id: false, force: :cascade do |t|
     t.integer "program_id"
     t.integer "user_id"
-    t.index ["program_id"], name: "index_programs_users_on_program_id"
-    t.index ["user_id"], name: "index_programs_users_on_user_id"
+    t.index ["program_id"], name: "index_programs_users_on_program_id", using: :btree
+    t.index ["user_id"], name: "index_programs_users_on_user_id", using: :btree
   end
 
   create_table "progresses", force: :cascade do |t|
@@ -101,8 +104,8 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.integer  "card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["card_id"], name: "index_progresses_on_card_id"
-    t.index ["user_id"], name: "index_progresses_on_user_id"
+    t.index ["card_id"], name: "index_progresses_on_card_id", using: :btree
+    t.index ["user_id"], name: "index_progresses_on_user_id", using: :btree
   end
 
   create_table "stats", force: :cascade do |t|
@@ -110,8 +113,8 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.integer  "card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["card_id"], name: "index_stats_on_card_id"
-    t.index ["user_id"], name: "index_stats_on_user_id"
+    t.index ["card_id"], name: "index_stats_on_card_id", using: :btree
+    t.index ["user_id"], name: "index_stats_on_user_id", using: :btree
   end
 
   create_table "survey_answers", force: :cascade do |t|
@@ -208,8 +211,19 @@ ActiveRecord::Schema.define(version: 20180724153034) do
     t.string   "gc_session_id"
     t.string   "access_token"
     t.datetime "expires_in"
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["remember_token"], name: "index_users_on_remember_token"
+    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["remember_token"], name: "index_users_on_remember_token", using: :btree
   end
 
+  add_foreign_key "card_templates", "cards"
+  add_foreign_key "card_templates", "events"
+  add_foreign_key "card_templates", "programs"
+  add_foreign_key "cards", "categories"
+  add_foreign_key "cards", "programs"
+  add_foreign_key "events", "cards"
+  add_foreign_key "new_surveys", "cards"
+  add_foreign_key "progresses", "cards"
+  add_foreign_key "progresses", "users"
+  add_foreign_key "stats", "cards"
+  add_foreign_key "stats", "users"
 end

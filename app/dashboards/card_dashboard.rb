@@ -1,4 +1,6 @@
 require "administrate/base_dashboard"
+require_relative "../fields/nested_has_many"
+
 
 class CardDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES

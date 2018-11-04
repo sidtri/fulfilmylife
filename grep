@@ -1,0 +1,117 @@
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.4  0.5 119956  6084 ?        Ss   16:26   0:03 /sbin/init
+root         2  0.0  0.0      0     0 ?        S    16:26   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    16:26   0:00 [ksoftirqd/0]
+root         5  0.0  0.0      0     0 ?        S<   16:26   0:00 [kworker/0:0H]
+root         7  0.0  0.0      0     0 ?        S    16:26   0:00 [rcu_sched]
+root         8  0.0  0.0      0     0 ?        S    16:26   0:00 [rcu_bh]
+root         9  0.0  0.0      0     0 ?        S    16:26   0:00 [migration/0]
+root        10  0.0  0.0      0     0 ?        S    16:26   0:00 [watchdog/0]
+root        11  0.0  0.0      0     0 ?        S    16:26   0:00 [kdevtmpfs]
+root        12  0.0  0.0      0     0 ?        S<   16:26   0:00 [netns]
+root        13  0.0  0.0      0     0 ?        S<   16:26   0:00 [perf]
+root        14  0.0  0.0      0     0 ?        S    16:26   0:00 [khungtaskd]
+root        15  0.0  0.0      0     0 ?        S<   16:26   0:00 [writeback]
+root        16  0.0  0.0      0     0 ?        SN   16:26   0:00 [ksmd]
+root        17  0.0  0.0      0     0 ?        SN   16:26   0:00 [khugepaged]
+root        18  0.0  0.0      0     0 ?        S<   16:26   0:00 [crypto]
+root        19  0.0  0.0      0     0 ?        S<   16:26   0:00 [kintegrityd]
+root        20  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        21  0.0  0.0      0     0 ?        S<   16:26   0:00 [kblockd]
+root        22  0.0  0.0      0     0 ?        S<   16:26   0:00 [ata_sff]
+root        23  0.0  0.0      0     0 ?        S<   16:26   0:00 [md]
+root        24  0.0  0.0      0     0 ?        S<   16:26   0:00 [devfreq_wq]
+root        26  0.0  0.0      0     0 ?        S    16:26   0:00 [kworker/u2:1]
+root        28  0.0  0.0      0     0 ?        S    16:26   0:00 [kswapd0]
+root        29  0.0  0.0      0     0 ?        S<   16:26   0:00 [vmstat]
+root        30  0.0  0.0      0     0 ?        S    16:26   0:00 [fsnotify_mark]
+root        31  0.0  0.0      0     0 ?        S    16:26   0:00 [ecryptfs-kthrea]
+root        47  0.0  0.0      0     0 ?        S<   16:26   0:00 [kthrotld]
+root        48  0.0  0.0      0     0 ?        S<   16:26   0:00 [acpi_thermal_pm]
+root        49  0.0  0.0      0     0 ?        S    16:26   0:00 [vballoon]
+root        50  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        51  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        52  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        53  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        54  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        55  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        56  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        57  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        58  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root        59  0.0  0.0      0     0 ?        S    16:26   0:00 [scsi_eh_0]
+root        60  0.0  0.0      0     0 ?        S<   16:26   0:00 [scsi_tmf_0]
+root        61  0.0  0.0      0     0 ?        S    16:26   0:00 [scsi_eh_1]
+root        62  0.0  0.0      0     0 ?        S<   16:26   0:00 [scsi_tmf_1]
+root        68  0.0  0.0      0     0 ?        S<   16:26   0:00 [ipv6_addrconf]
+root        81  0.0  0.0      0     0 ?        S<   16:26   0:00 [deferwq]
+root        82  0.0  0.0      0     0 ?        S<   16:26   0:00 [charger_manager]
+root       119  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       120  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       121  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       122  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       123  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       124  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       125  0.0  0.0      0     0 ?        S    16:26   0:00 [scsi_eh_2]
+root       126  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       127  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       128  0.0  0.0      0     0 ?        S<   16:26   0:00 [scsi_tmf_2]
+root       139  0.0  0.0      0     0 ?        S<   16:26   0:00 [kpsmoused]
+root       486  0.0  0.0      0     0 ?        S<   16:26   0:00 [raid5wq]
+root       517  0.0  0.0      0     0 ?        S<   16:26   0:00 [bioset]
+root       539  0.0  0.0      0     0 ?        S    16:26   0:00 [jbd2/vda1-8]
+root       540  0.0  0.0      0     0 ?        S<   16:26   0:00 [ext4-rsv-conver]
+root       604  0.0  0.0      0     0 ?        S<   16:26   0:00 [kworker/0:1H]
+root       618  0.0  0.3  28352  3276 ?        Ss   16:26   0:00 /lib/systemd/systemd-journald
+root       639  0.0  0.0      0     0 ?        S<   16:26   0:00 [iscsi_eh]
+root       641  0.0  0.0      0     0 ?        S    16:26   0:00 [kauditd]
+root       649  0.0  0.0      0     0 ?        S<   16:26   0:00 [ib_addr]
+root       660  0.0  0.0      0     0 ?        S<   16:26   0:00 [ib_mcast]
+root       661  0.0  0.0      0     0 ?        S<   16:26   0:00 [ib_nl_sa_wq]
+root       662  0.0  0.0      0     0 ?        S<   16:26   0:00 [ib_cm]
+root       668  0.0  0.0      0     0 ?        S<   16:26   0:00 [iw_cm_wq]
+root       671  0.0  0.0      0     0 ?        S<   16:26   0:00 [rdma_cm]
+root       680  0.0  0.1  94772  1528 ?        Ss   16:26   0:00 /sbin/lvmetad -f
+root       731  0.0  0.3  42752  3960 ?        Ss   16:26   0:00 /lib/systemd/systemd-udevd
+systemd+   924  0.0  0.2 100324  2540 ?        Ssl  16:26   0:00 /lib/systemd/systemd-timesyncd
+root       946  0.0  0.0      0     0 ?        S<   16:26   0:00 [kvm-irqfd-clean]
+root      1312  0.0  0.0   5220   148 ?        Ss   16:26   0:00 /sbin/iscsid
+root      1313  0.0  0.3   5720  3504 ?        S<Ls 16:26   0:00 /sbin/iscsid
+root      1318  0.0  0.2  28544  3004 ?        Ss   16:26   0:00 /lib/systemd/systemd-logind
+root      1319  0.0  0.6 274488  6196 ?        Ssl  16:26   0:00 /usr/lib/accountsservice/accounts-daemon
+root      1323  0.0  0.2  27728  2980 ?        Ss   16:26   0:00 /usr/sbin/cron -f
+root      1327  0.0  0.1   4396  1304 ?        Ss   16:26   0:00 /usr/sbin/acpid
+root      1330  0.2  5.4 606156 55736 ?        Ssl  16:26   0:02 /usr/bin/dockerd -H fd://
+daemon    1338  0.0  0.2  26044  2256 ?        Ss   16:26   0:00 /usr/sbin/atd -f
+syslog    1344  0.0  0.3 256392  3388 ?        Ssl  16:26   0:00 /usr/sbin/rsyslogd -n
+message+  1349  0.0  0.3  42888  3768 ?        Ss   16:26   0:00 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+root      1362  0.0  0.6  65508  6280 ?        Ss   16:26   0:00 /usr/sbin/sshd -D
+root      1366  0.0  0.1  95368  1460 ?        Ssl  16:26   0:00 /usr/bin/lxcfs /var/lib/lxcfs/
+mongodb   1385  0.6  5.3 279448 53912 ?        Ssl  16:26   0:05 /usr/bin/mongod --quiet --config /etc/mongod.conf
+root      1388  0.0  2.3 345588 23816 ?        Ssl  16:26   0:00 /usr/lib/snapd/snapd
+root      1400  0.0  0.5 277180  6008 ?        Ssl  16:26   0:00 /usr/lib/policykit-1/polkitd --no-debug
+root      1465  0.0  0.2  14472  2232 ttyS0    Ss+  16:26   0:00 /sbin/agetty --keep-baud 115200 38400 9600 ttyS0 vt220
+root      1488  0.0  0.0  13372   164 ?        Ss   16:26   0:00 /sbin/mdadm --monitor --pid-file /run/mdadm/monitor.pid --daemonise --scan --syslog
+root      1514  0.1  2.4 311144 24524 ?        Ssl  16:26   0:01 docker-containerd --config /var/run/docker/containerd/containerd.toml
+postgres  1524  0.0  2.3 293424 23952 ?        S    16:26   0:00 /usr/lib/postgresql/9.5/bin/postgres -D /var/lib/postgresql/9.5/main -c config_file=/etc/postgresql/9.5/main/postgresql.conf
+postgres  1607  0.0  0.3 293424  3948 ?        Ss   16:27   0:00 postgres: checkpointer process   
+postgres  1608  0.0  0.5 293424  5620 ?        Ss   16:27   0:00 postgres: writer process   
+postgres  1609  0.0  0.8 293424  8784 ?        Ss   16:27   0:00 postgres: wal writer process   
+postgres  1610  0.0  0.6 293860  6528 ?        Ss   16:27   0:00 postgres: autovacuum launcher process   
+postgres  1611  0.0  0.3 148544  3256 ?        Ss   16:27   0:00 postgres: stats collector process   
+root      2048  0.0  0.2 100116  2732 ?        Sl   16:27   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 6379 -container-ip 172.18.0.3 -container-port 6379
+root      2088  0.0  0.4   7520  4296 ?        Sl   16:27   0:00 docker-containerd-shim -namespace moby -workdir /var/lib/docker/containerd/daemon/io.containerd.runtime.v1.linux/moby/91a1eb46c8f8e3db73f73da622776f1f53bf339873c23a2207ce019bf1114073 -address /var/run/docker/containerd/docker-containerd.sock -containerd-binary /usr/bin/docker-containerd -runtime-root /var/run/docker/runtime-runc
+999       2167  0.1  0.3  41648  3960 ?        Ssl  16:27   0:00 redis-server *:6379
+root      9641  0.0  0.3  66056  3452 tty1     Ss   16:31   0:00 /bin/login --
+root     11177  0.0  0.0      0     0 ?        S    16:32   0:00 [kworker/0:0]
+root     11471  0.0  0.4  36828  4484 ?        Ss   16:32   0:00 /lib/systemd/systemd --user
+root     11473  0.0  0.2 143408  2208 ?        S    16:32   0:00 (sd-pam)
+root     11476  0.0  0.0      0     0 ?        S    16:32   0:00 [kworker/0:1]
+root     11480  0.3  0.6  46164  6592 tty1     S    16:32   0:01 -zsh
+root     16619  0.0  0.0      0     0 ?        S    16:35   0:00 [kworker/u2:2]
+root     19319  0.0  0.0      0     0 ?        S    16:37   0:00 [kworker/0:2]
+root     24041  0.0  0.0      0     0 ?        S    16:40   0:00 [kworker/0:3]
+root     24047  0.3  1.2 388140 12316 ?        Ssl  16:40   0:00 Passenger watchdog
+root     24050  0.5  1.6 678384 16796 ?        Sl   16:40   0:00 Passenger core
+root     24057  0.0  0.5 180008  5764 ?        Ss   16:40   0:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+www-data 24064  0.0  0.7 180008  7312 ?        S    16:40   0:00 nginx: worker process
+root     24291  0.0  0.3  36084  3264 tty1     R+   16:40   0:00 ps aux 3000
