@@ -1,0 +1,1634 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.14
+-- Dumped by pg_dump version 9.5.14
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ar_internal_metadata OWNER TO sid;
+
+--
+-- Name: card_templates; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.card_templates (
+    id integer NOT NULL,
+    name character varying,
+    card_id integer,
+    event_id integer,
+    program_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.card_templates OWNER TO sid;
+
+--
+-- Name: card_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.card_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.card_templates_id_seq OWNER TO sid;
+
+--
+-- Name: card_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.card_templates_id_seq OWNED BY public.card_templates.id;
+
+
+--
+-- Name: cards; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.cards (
+    id integer NOT NULL,
+    title character varying,
+    sub_title character varying,
+    total_time character varying,
+    content character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    tag integer,
+    slug character varying,
+    "references" character varying,
+    parsed_content text,
+    days integer,
+    program_id integer,
+    category_id integer
+);
+
+
+ALTER TABLE public.cards OWNER TO sid;
+
+--
+-- Name: cards_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.cards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cards_id_seq OWNER TO sid;
+
+--
+-- Name: cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.cards_id_seq OWNED BY public.cards.id;
+
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.categories (
+    id integer NOT NULL,
+    name character varying,
+    color character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.categories OWNER TO sid;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_id_seq OWNER TO sid;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- Name: events; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.events (
+    id integer NOT NULL,
+    name character varying,
+    start_time timestamp without time zone,
+    recurring text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    end_time timestamp without time zone,
+    card_id integer
+);
+
+
+ALTER TABLE public.events OWNER TO sid;
+
+--
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.events_id_seq OWNER TO sid;
+
+--
+-- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
+
+
+--
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.friendly_id_slugs (
+    id integer NOT NULL,
+    slug character varying NOT NULL,
+    sluggable_id integer NOT NULL,
+    sluggable_type character varying(50),
+    scope character varying,
+    created_at timestamp without time zone
+);
+
+
+ALTER TABLE public.friendly_id_slugs OWNER TO sid;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.friendly_id_slugs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.friendly_id_slugs_id_seq OWNER TO sid;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.friendly_id_slugs_id_seq OWNED BY public.friendly_id_slugs.id;
+
+
+--
+-- Name: new_surveys; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.new_surveys (
+    id integer NOT NULL,
+    card_id integer,
+    question_id character varying,
+    answer character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.new_surveys OWNER TO sid;
+
+--
+-- Name: new_surveys_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.new_surveys_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.new_surveys_id_seq OWNER TO sid;
+
+--
+-- Name: new_surveys_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.new_surveys_id_seq OWNED BY public.new_surveys.id;
+
+
+--
+-- Name: programs; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.programs (
+    id integer NOT NULL,
+    name character varying,
+    period character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    active boolean DEFAULT false
+);
+
+
+ALTER TABLE public.programs OWNER TO sid;
+
+--
+-- Name: programs_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.programs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.programs_id_seq OWNER TO sid;
+
+--
+-- Name: programs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.programs_id_seq OWNED BY public.programs.id;
+
+
+--
+-- Name: programs_users; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.programs_users (
+    program_id integer,
+    user_id integer
+);
+
+
+ALTER TABLE public.programs_users OWNER TO sid;
+
+--
+-- Name: progresses; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.progresses (
+    id integer NOT NULL,
+    user_id integer,
+    card_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.progresses OWNER TO sid;
+
+--
+-- Name: progresses_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.progresses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.progresses_id_seq OWNER TO sid;
+
+--
+-- Name: progresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.progresses_id_seq OWNED BY public.progresses.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO sid;
+
+--
+-- Name: stats; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.stats (
+    id integer NOT NULL,
+    user_id integer,
+    card_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.stats OWNER TO sid;
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.stats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.stats_id_seq OWNER TO sid;
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.stats_id_seq OWNED BY public.stats.id;
+
+
+--
+-- Name: survey_answers; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.survey_answers (
+    id integer NOT NULL,
+    attempt_id integer,
+    question_id integer,
+    option_id integer,
+    correct boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    option_text text,
+    option_number integer,
+    predefined_value_id integer
+);
+
+
+ALTER TABLE public.survey_answers OWNER TO sid;
+
+--
+-- Name: survey_answers_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.survey_answers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.survey_answers_id_seq OWNER TO sid;
+
+--
+-- Name: survey_answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.survey_answers_id_seq OWNED BY public.survey_answers.id;
+
+
+--
+-- Name: survey_attempts; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.survey_attempts (
+    id integer NOT NULL,
+    participant_type character varying,
+    participant_id integer,
+    survey_id integer,
+    winner boolean,
+    score integer
+);
+
+
+ALTER TABLE public.survey_attempts OWNER TO sid;
+
+--
+-- Name: survey_attempts_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.survey_attempts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.survey_attempts_id_seq OWNER TO sid;
+
+--
+-- Name: survey_attempts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.survey_attempts_id_seq OWNED BY public.survey_attempts.id;
+
+
+--
+-- Name: survey_options; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.survey_options (
+    id integer NOT NULL,
+    question_id integer,
+    weight integer DEFAULT 0,
+    text character varying,
+    correct boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    locale_text character varying,
+    options_type_id integer,
+    head_number character varying
+);
+
+
+ALTER TABLE public.survey_options OWNER TO sid;
+
+--
+-- Name: survey_options_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.survey_options_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.survey_options_id_seq OWNER TO sid;
+
+--
+-- Name: survey_options_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.survey_options_id_seq OWNED BY public.survey_options.id;
+
+
+--
+-- Name: survey_predefined_values; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.survey_predefined_values (
+    id integer NOT NULL,
+    head_number character varying,
+    name character varying,
+    locale_name character varying,
+    question_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.survey_predefined_values OWNER TO sid;
+
+--
+-- Name: survey_predefined_values_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.survey_predefined_values_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.survey_predefined_values_id_seq OWNER TO sid;
+
+--
+-- Name: survey_predefined_values_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.survey_predefined_values_id_seq OWNED BY public.survey_predefined_values.id;
+
+
+--
+-- Name: survey_questions; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.survey_questions (
+    id integer NOT NULL,
+    text character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    section_id integer,
+    head_number character varying,
+    description text,
+    locale_text character varying,
+    locale_head_number character varying,
+    locale_description text,
+    questions_type_id integer,
+    mandatory boolean DEFAULT false
+);
+
+
+ALTER TABLE public.survey_questions OWNER TO sid;
+
+--
+-- Name: survey_questions_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.survey_questions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.survey_questions_id_seq OWNER TO sid;
+
+--
+-- Name: survey_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.survey_questions_id_seq OWNED BY public.survey_questions.id;
+
+
+--
+-- Name: survey_sections; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.survey_sections (
+    id integer NOT NULL,
+    head_number character varying,
+    name character varying,
+    description text,
+    survey_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    locale_head_number character varying,
+    locale_name character varying,
+    locale_description text
+);
+
+
+ALTER TABLE public.survey_sections OWNER TO sid;
+
+--
+-- Name: survey_sections_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.survey_sections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.survey_sections_id_seq OWNER TO sid;
+
+--
+-- Name: survey_sections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.survey_sections_id_seq OWNED BY public.survey_sections.id;
+
+
+--
+-- Name: survey_surveys; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.survey_surveys (
+    id integer NOT NULL,
+    name character varying,
+    description text,
+    attempts_number integer DEFAULT 0,
+    finished boolean DEFAULT false,
+    active boolean DEFAULT true,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    locale_name character varying,
+    locale_description text
+);
+
+
+ALTER TABLE public.survey_surveys OWNER TO sid;
+
+--
+-- Name: survey_surveys_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.survey_surveys_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.survey_surveys_id_seq OWNER TO sid;
+
+--
+-- Name: survey_surveys_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.survey_surveys_id_seq OWNED BY public.survey_surveys.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: sid
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    email character varying NOT NULL,
+    encrypted_password character varying(128) NOT NULL,
+    confirmation_token character varying(128),
+    remember_token character varying(128) NOT NULL,
+    provider character varying,
+    uid character varying,
+    oauth_token character varying,
+    oauth_expires_at timestamp without time zone,
+    name character varying,
+    gc_session_id character varying,
+    access_token character varying,
+    expires_in timestamp without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO sid;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: sid
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO sid;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sid
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.card_templates ALTER COLUMN id SET DEFAULT nextval('public.card_templates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.cards ALTER COLUMN id SET DEFAULT nextval('public.cards_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.new_surveys ALTER COLUMN id SET DEFAULT nextval('public.new_surveys_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.programs ALTER COLUMN id SET DEFAULT nextval('public.programs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.progresses ALTER COLUMN id SET DEFAULT nextval('public.progresses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.stats ALTER COLUMN id SET DEFAULT nextval('public.stats_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_answers ALTER COLUMN id SET DEFAULT nextval('public.survey_answers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_attempts ALTER COLUMN id SET DEFAULT nextval('public.survey_attempts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_options ALTER COLUMN id SET DEFAULT nextval('public.survey_options_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_predefined_values ALTER COLUMN id SET DEFAULT nextval('public.survey_predefined_values_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_questions ALTER COLUMN id SET DEFAULT nextval('public.survey_questions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_sections ALTER COLUMN id SET DEFAULT nextval('public.survey_sections_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_surveys ALTER COLUMN id SET DEFAULT nextval('public.survey_surveys_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2018-02-05 02:56:27.800839	2018-02-05 02:56:27.800839
+\.
+
+
+--
+-- Data for Name: card_templates; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.card_templates (id, name, card_id, event_id, program_id, created_at, updated_at) FROM stdin;
+1	testing program template	12	2	2	2018-02-26 15:40:35.141433	2018-02-26 15:40:35.141433
+2	Morning Ritual - DAILY EVENT	13	1	3	2018-02-26 16:02:11.931522	2018-02-26 16:02:11.931522
+3	Eat to live - DAILY EVENT	15	1	1	2018-03-10 00:50:27.773008	2018-03-10 00:50:27.773008
+4	The pearl - DAILY EVENT	16	1	3	2018-03-10 02:59:59.211233	2018-03-10 02:59:59.211233
+5	Document attestation - DAILY EVENT	32	1	2	2018-07-02 06:11:59.850755	2018-07-02 06:11:59.850755
+6	Notice and name - DAILY EVENT	33	1	6	2018-07-09 15:56:44.015155	2018-07-09 15:57:06.357262
+\.
+
+
+--
+-- Name: card_templates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.card_templates_id_seq', 6, true);
+
+
+--
+-- Data for Name: cards; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.cards (id, title, sub_title, total_time, content, created_at, updated_at, tag, slug, "references", parsed_content, days, program_id, category_id) FROM stdin;
+3	Inversion principle			I always use a principle of logic called inversion.\r\nCharlie Munger the self-made billionaire, \r\nand Warren Buffett made a 300 billion dollar company and they say\r\nit's because they understand inversion. \r\n\r\nTo get what you want you have to think about what you don't want. \r\nWhat are the things that keep people from getting automated wealth?	2018-02-05 16:21:09.022644	2018-02-05 16:21:09.022644	1	inversion-principle	\N	<p>I always use a principle of logic called inversion.\r\nCharlie Munger the self-made billionaire, \r\nand Warren Buffett made a 300 billion dollar company and they say\r\nit's because they understand inversion. </p>\r\n<p>To get what you want you have to think about what you don't want. \r\nWhat are the things that keep people from getting automated wealth?</p>\r\n	\N	\N	\N
+4	The Idea Myth			Many people get big billion ideas, and might think that one day that idea become success. \r\n\r\nIf you really want your idea to come true, see what you can do now. 	2018-02-05 16:24:35.349917	2018-02-05 16:24:35.349917	0	the-idea-myth	\N	<p>Many people get big billion ideas, and might think that one day that idea become success. </p>\r\n<p>If you really want your idea to come true, see what you can do now. </p>\r\n	\N	\N	\N
+7	Forget your circustance	What are three things that are stopping you? Type them down below! Then, close the browser tab and voila... they're GONE!		Through hardwork and dedication we can go peaks.\r\n\r\nYour height, weight, gender, family history none of that matters. Only matters is your courage and some commitment with dedication passion to do something.\r\n\r\nWhats stopping you ?\r\nFor me its \r\n- Time \r\n- Things to prioritize and what matters most\r\n- Entertainment\r\n- Alcohol 	2018-02-06 02:10:07.666466	2018-02-06 02:10:07.666466	0	forget-your-circustance	\N	<p>Through hardwork and dedication we can go peaks.</p>\r\n<p>Your height, weight, gender, family history none of that matters. Only matters is your courage and some commitment with dedication passion to do something.</p>\r\n<p>Whats stopping you ?\r\nFor me its </p>\r\n<ul>\r\n<li>Time </li>\r\n<li>Things to prioritize and what matters most</li>\r\n<li>Entertainment</li>\r\n<li>Alcohol </li>\r\n</ul>\r\n	\N	\N	\N
+5	EAT SLOW	EATING SLOWLY WILL HELP YOU LOSE WEIGHT, ENJOY YOUR FOOD MORE, AND FIGHT O CRAVINGS.		Did you know that it takes atleast 20 minutes for signals to get from your stomach to your brain to tell you that you are full.\r\n\r\nI know you are busy and it might not be possible for you to allocate time, but there is no other way except to make time for yourself and eat slowly and consciously.\r\n\r\nBecause, eating slowly is the base and acts like a foundation for changing your diet or what ever it is you want to do in order to get lean and be healthy.\r\n\r\nWhat to do today\r\nOnce you felt you ate slowly today, say yes below.\r\n\r\n	2018-02-05 16:43:46.062861	2018-02-06 16:51:38.820291	1	eat-slow	\N	<p>Did you know that it takes atleast 20 minutes for signals to get from your stomach to your brain to tell you that you are full.</p>\r\n<p>I know you are busy and it might not be possible for you to allocate time, but there is no other way except to make time for yourself and eat slowly and consciously.</p>\r\n<p>Because, eating slowly is the base and acts like a foundation for changing your diet or what ever it is you want to do in order to get lean and be healthy.</p>\r\n<p>What to do today\r\nOnce you felt you ate slowly today, say yes below.</p>\r\n	14	1	\N
+6	PAY ATTENTION	WHY YOU SHOULD EAT SLOWLY ?		Here, we've been talking about why it's important to slow down, relax, and pay attention — and how this apparently simple change can eventually have big results.\r\n\r\nToday, we're going to give you a slightly wacky suggestion:\r\n\r\nIf you overeat, do it slowly.\r\n\r\n(Trust us. This sounds crazy, but it works.)\r\n\r\nMore speed, less control\r\nWhether it's garden-variety overeating (as in "Ma! No more pasta! OK, maybe a little"); distracted eating ("Oops! Did I finish that entire bag of chips while watching Breaking Bad?"); or binge eating ("I totally lost control"), many folks struggle with their food choices sometimes.\r\n\r\nIt's normal.\r\n\r\n(How do you think we know so much about this stuff? Let’s just say we... ahem... have done some “hands-on research” of our own.)\r\n\r\nEver notice what overeating episodes and/or poor food choices tend to have in common?\r\n\r\nSpeed.\r\n\r\nIf you've ever been through a classic binge, you know what we're talking about. It's like going on autopilot.\r\n\r\nHand, mouth, hand, mouth, hand, mouth.\r\n\r\nPicking up speed as you go, faster and faster and faster.\r\n\r\nOnce you get serious momentum, it feels almost impossible to stop.\r\n\r\nAnd right now, if you're struggling with binge eating, we won't ask you to stop.\r\n\r\nOvereating does something important and valuable for you.\r\n\r\nRight now, overeating solves a problem for you (even if it creates other problems).\r\n\r\nSo, if this resonates with you, let's talk about another solution.\r\n\r\n(If you don't struggle with overeating, that's cool. Skip today's lesson, keep on eating slowly, and we'll see you back in class tomorrow.)\r\n\r\nInstead of "don't overeat", overeat slowly.\r\n\r\nWait... what?\r\n\r\nOvereat slowly\r\nThink about it.\r\n\r\nWhat's the Opposite Day for binge eating, where you cram down a lot of food as fast as possible?\r\n\r\nEating slowly.\r\n\r\nYou can still binge.\r\n\r\nEat as much as you want. Eat whatever you want. (We'll worry about changing this later. For now, one thing at a time.)\r\n\r\nYes. You have our permission and you read that correctly: If you are in the throes of a compulsive eating episode, eat as much as you need to — and whatever types of foods you want — in order to make yourself feel better.\r\n\r\nEat until you're done.\r\n\r\nThe only catch is that you eat slowly.\r\n\r\nWait... isn't that irresponsible?\r\nWell, if you're like most folks who have grappled with overeating, you've tried to "just stop".\r\n\r\nYou've tried to talk yourself out of it. You've felt guilty, regretful, and ashamed.\r\n\r\nDid it work?\r\n\r\nProbably not so well.\r\n\r\nSo in fact, the most "responsible" thing is to learn to be present with your eating, instead of zoning out.\r\n\r\nYou do that by slowing down.\r\n\r\nOne thing at a time\r\nRight now, overeating does something for you. It's a way to cope. We're not going to take that away from you if you need it.\r\n\r\nAll we're going to do is change one small thing at a time.\r\n\r\nWhatever you eat, whenever you eat, no matter how crazy or epic the eating episode becomes... just do it slowly.\r\n\r\nYou can eat everything you want. As much as you want.\r\n\r\nAs long as you do it one mindful bite, one deep breath, one pause to savor, at a time.\r\n\r\nHey, you want that food. You might as well truly enjoy it.\r\n\r\nMake like a turtle. Sloooow downnn.\r\n\r\nWhat to do today\r\nEat slowly.\r\nAt every meal, try to take a few extra minutes. Put your utensils down. Take a breath or two between bites. Notice tastes and textures. Enjoy and savor your food.\r\n\r\nOvereat slowly.\r\nIf you need to overeat or binge to feel better right now, no problem. You have our permission to eat whatever you want, as much as you want.\r\n\r\nThe only catch is that you must do it as slowly as possible.\r\n\r\nHang in there.\r\nIf you're struggling with overeating, it may seem like there's no end in sight. Be patient and persistent.\r\n\r\nWe've helped thousands of people change their behaviors for good. It just takes time and practice.\r\n\r\nIf you're here, it means that at least part of you wants to change. All you have to do is keep showing up.	2018-02-05 16:45:48.701516	2018-02-06 16:52:02.314811	0	pay-attention	\N	<p>Here, we've been talking about why it's important to slow down, relax, and pay attention — and how this apparently simple change can eventually have big results.</p>\r\n<p>Today, we're going to give you a slightly wacky suggestion:</p>\r\n<p>If you overeat, do it slowly.</p>\r\n<p>(Trust us. This sounds crazy, but it works.)</p>\r\n<p>More speed, less control\r\nWhether it's garden-variety overeating (as in "Ma! No more pasta! OK, maybe a little"); distracted eating ("Oops! Did I finish that entire bag of chips while watching Breaking Bad?"); or binge eating ("I totally lost control"), many folks struggle with their food choices sometimes.</p>\r\n<p>It's normal.</p>\r\n<p>(How do you think we know so much about this stuff? Let’s just say we... ahem... have done some “hands-on research” of our own.)</p>\r\n<p>Ever notice what overeating episodes and/or poor food choices tend to have in common?</p>\r\n<p>Speed.</p>\r\n<p>If you've ever been through a classic binge, you know what we're talking about. It's like going on autopilot.</p>\r\n<p>Hand, mouth, hand, mouth, hand, mouth.</p>\r\n<p>Picking up speed as you go, faster and faster and faster.</p>\r\n<p>Once you get serious momentum, it feels almost impossible to stop.</p>\r\n<p>And right now, if you're struggling with binge eating, we won't ask you to stop.</p>\r\n<p>Overeating does something important and valuable for you.</p>\r\n<p>Right now, overeating solves a problem for you (even if it creates other problems).</p>\r\n<p>So, if this resonates with you, let's talk about another solution.</p>\r\n<p>(If you don't struggle with overeating, that's cool. Skip today's lesson, keep on eating slowly, and we'll see you back in class tomorrow.)</p>\r\n<p>Instead of "don't overeat", overeat slowly.</p>\r\n<p>Wait... what?</p>\r\n<p>Overeat slowly\r\nThink about it.</p>\r\n<p>What's the Opposite Day for binge eating, where you cram down a lot of food as fast as possible?</p>\r\n<p>Eating slowly.</p>\r\n<p>You can still binge.</p>\r\n<p>Eat as much as you want. Eat whatever you want. (We'll worry about changing this later. For now, one thing at a time.)</p>\r\n<p>Yes. You have our permission and you read that correctly: If you are in the throes of a compulsive eating episode, eat as much as you need to — and whatever types of foods you want — in order to make yourself feel better.</p>\r\n<p>Eat until you're done.</p>\r\n<p>The only catch is that you eat slowly.</p>\r\n<p>Wait... isn't that irresponsible?\r\nWell, if you're like most folks who have grappled with overeating, you've tried to "just stop".</p>\r\n<p>You've tried to talk yourself out of it. You've felt guilty, regretful, and ashamed.</p>\r\n<p>Did it work?</p>\r\n<p>Probably not so well.</p>\r\n<p>So in fact, the most "responsible" thing is to learn to be present with your eating, instead of zoning out.</p>\r\n<p>You do that by slowing down.</p>\r\n<p>One thing at a time\r\nRight now, overeating does something for you. It's a way to cope. We're not going to take that away from you if you need it.</p>\r\n<p>All we're going to do is change one small thing at a time.</p>\r\n<p>Whatever you eat, whenever you eat, no matter how crazy or epic the eating episode becomes... just do it slowly.</p>\r\n<p>You can eat everything you want. As much as you want.</p>\r\n<p>As long as you do it one mindful bite, one deep breath, one pause to savor, at a time.</p>\r\n<p>Hey, you want that food. You might as well truly enjoy it.</p>\r\n<p>Make like a turtle. Sloooow downnn.</p>\r\n<p>What to do today\r\nEat slowly.\r\nAt every meal, try to take a few extra minutes. Put your utensils down. Take a breath or two between bites. Notice tastes and textures. Enjoy and savor your food.</p>\r\n<p>Overeat slowly.\r\nIf you need to overeat or binge to feel better right now, no problem. You have our permission to eat whatever you want, as much as you want.</p>\r\n<p>The only catch is that you must do it as slowly as possible.</p>\r\n<p>Hang in there.\r\nIf you're struggling with overeating, it may seem like there's no end in sight. Be patient and persistent.</p>\r\n<p>We've helped thousands of people change their behaviors for good. It just takes time and practice.</p>\r\n<p>If you're here, it means that at least part of you wants to change. All you have to do is keep showing up.</p>\r\n	\N	1	\N
+37	Smart talk			- what does my audience need to hear ?\r\n- What is it they expect from me ?\r\n- Attitude \r\n\r\nHow to speak:\r\n- Past present future structure\r\n- Problem solution structure \r\n- what, so what, now what structure\r\n\r\nStructure it and communicate clearly. \r\n\r\nConfident, bold and leave audience from not forget	2018-08-23 17:42:18.981704	2018-08-23 17:42:18.981704	0	smart-talk	\N	<ul>\r\n<li>what does my audience need to hear ?</li>\r\n<li>What is it they expect from me ?</li>\r\n<li>Attitude </li>\r\n</ul>\r\n<p>How to speak:</p>\r\n<ul>\r\n<li>Past present future structure</li>\r\n<li>Problem solution structure </li>\r\n<li>what, so what, now what structure</li>\r\n</ul>\r\n<p>Structure it and communicate clearly. </p>\r\n<p>Confident, bold and leave audience from not forget</p>\r\n	\N	\N	\N
+8	Blog posts			-> 1) People dont care about you, you have to see through problems \r\n-> 2) Unique Central thesis. (Wasting your time -Find shortcuts )\r\n-> 3) Mechanism (Intermittent fasting)\r\n-> Put what you want to convey right in front of landing page top\r\n-> Google trends\r\n-> Half the battle is in the headline (under 65 characters)\r\n-> Create content that teaches\r\n-> Use you and I \r\n-> No sidebar shares (Market through popups is the best option - 1, content headers - 2, content upgrades(thrive) -3)\r\n-> Mondays most people read emails (11 AM )\r\n-> Email should contain only text\r\n-> Ideal time to share on social web ? (Midweek & Weekends - Noon & 6PM)\r\n-> Buzzsumo, hunter.io (Reach out to other similar websites and connect)\r\n-> Translate to multiple languages (High GDP, )\r\n-> Cross link through sidebar (Go after big keywords, high quality, )\r\n-> Landing pages (Build trust, more slides, ) \r\n-> Surveymonkey (Survey people)\r\n-> No means not right now\r\n-> Jobs.problogger.net (Get other people to start writing for you)\r\n-> If people dont open up and if we keep sending emails to them, then google put it into spam\r\n-> Text messages. Austin ? Yes who's this ? This is so and so, you came this ..\r\n\r\n\r\nInfographic (dribbble.com, 99designs, fiber)\r\n: limit word count, keep them visual\r\n: makes sure points flow well together\r\n: makes complex info easy to understand\r\n: 5 to 6 points\r\n: Meaning of colors (use simple colors)\r\n: put logo and url at bottom	2018-02-07 17:38:23.318242	2018-02-11 12:51:55.3049	0	blog-posts	\N	<p>-&gt; 1) People dont care about you, you have to see through problems \r\n-&gt; 2) Unique Central thesis. (Wasting your time -Find shortcuts )\r\n-&gt; 3) Mechanism (Intermittent fasting)\r\n-&gt; Put what you want to convey right in front of landing page top\r\n-&gt; Google trends\r\n-&gt; Half the battle is in the headline (under 65 characters)\r\n-&gt; Create content that teaches\r\n-&gt; Use you and I \r\n-&gt; No sidebar shares (Market through popups is the best option - 1, content headers - 2, content upgrades(thrive) -3)\r\n-&gt; Mondays most people read emails (11 AM )\r\n-&gt; Email should contain only text\r\n-&gt; Ideal time to share on social web ? (Midweek &amp; Weekends - Noon &amp; 6PM)\r\n-&gt; Buzzsumo, hunter.io (Reach out to other similar websites and connect)\r\n-&gt; Translate to multiple languages (High GDP, )\r\n-&gt; Cross link through sidebar (Go after big keywords, high quality, )\r\n-&gt; Landing pages (Build trust, more slides, ) \r\n-&gt; Surveymonkey (Survey people)\r\n-&gt; No means not right now\r\n-&gt; Jobs.problogger.net (Get other people to start writing for you)\r\n-&gt; If people dont open up and if we keep sending emails to them, then google put it into spam\r\n-&gt; Text messages. Austin ? Yes who's this ? This is so and so, you came this ..</p>\r\n<p>Infographic (dribbble.com, 99designs, fiber)\r\n: limit word count, keep them visual\r\n: makes sure points flow well together\r\n: makes complex info easy to understand\r\n: 5 to 6 points\r\n: Meaning of colors (use simple colors)\r\n: put logo and url at bottom</p>\r\n	\N	\N	\N
+9	Social circle	How to read people minds		- KISS (Keep it super simple)\r\n- Common sense \r\n- someone pushing you\r\n\r\nThere's no change without a change in lifestyle \r\n\r\nSomebody in life \r\n- Overreacting to criticism \r\n- Secrets/Conspiracy - read more on women\r\n- When you not reply right away, the one who repeatedly texted you ??? Text (Less gray matter in their brain - Narcissist )\r\n- Time - reveal \r\n- sneaky \r\n- Bullied \r\n\r\n- Vain \r\n\r\n- Narcissists are the one who hangouts with important people\r\n\r\nSneakiest ones are the one who were bullied \r\n\r\nAnything relates to personal help attracts lots of crazy people \r\nThree names that you just have to spend less time with.\r\n-> Phani, \r\n\r\nGood looking is highly corelated with narcissism \r\nExploitation: \r\n\r\nAction Plan:\r\n1) Search for additional mentors\r\n2) Subtraction of negative exploiters\r\n3) Set special test group\r\n\r\nWhy i procrastinate ?\r\n-because i'm lonely \r\n	2018-02-11 14:12:13.156818	2018-02-12 17:16:14.365694	0	social-circle	\N	<ul>\r\n<li>KISS (Keep it super simple)</li>\r\n<li>Common sense </li>\r\n<li>someone pushing you</li>\r\n</ul>\r\n<p>There's no change without a change in lifestyle </p>\r\n<p>Somebody in life </p>\r\n<ul>\r\n<li>Overreacting to criticism </li>\r\n<li>Secrets/Conspiracy - read more on women</li>\r\n<li>When you not reply right away, the one who repeatedly texted you ??? Text (Less gray matter in their brain - Narcissist )</li>\r\n<li>Time - reveal </li>\r\n<li>sneaky </li>\r\n<li><p>Bullied </p>\r\n</li>\r\n<li><p>Vain </p>\r\n</li>\r\n<li><p>Narcissists are the one who hangouts with important people</p>\r\n</li>\r\n</ul>\r\n<p>Sneakiest ones are the one who were bullied </p>\r\n<p>Anything relates to personal help attracts lots of crazy people \r\nThree names that you just have to spend less time with.\r\n-&gt; Phani, </p>\r\n<p>Good looking is highly corelated with narcissism \r\nExploitation: </p>\r\n<p>Action Plan:\r\n1) Search for additional mentors\r\n2) Subtraction of negative exploiters\r\n3) Set special test group</p>\r\n<p>Why i procrastinate ?\r\n-because i'm lonely </p>\r\n	\N	\N	3
+11	How to deal with annoying people			1. Recognize that you don’t like the way the person is behaving. You are not happy with your current experience. In this way, you are rejecting this part of reality, rejecting a part of life. Consider opening up to all of life, without rejecting.\r\n2. Reflect on a river that flows downstream … imagine wishing it would flow upstream. It would just bring you unhappiness to wish that the river were different than it were. Now imagine that this other person is the river. Wishing they were different just brings unhappiness.\r\n3. See them as they are and open your heart to them, just as they are. See them as a suffering human being, with flaws and habitual ways of acting that can be irritating, but are actually very human. How can you love humanity just as it is?\r\n	2018-02-20 02:21:28.365739	2018-02-20 02:23:16.896224	0	how-to-deal-with-annoying-people	\N	<ol>\r\n<li>Recognize that you don’t like the way the person is behaving. You are not happy with your current experience. In this way, you are rejecting this part of reality, rejecting a part of life. Consider opening up to all of life, without rejecting.</li>\r\n<li>Reflect on a river that flows downstream … imagine wishing it would flow upstream. It would just bring you unhappiness to wish that the river were different than it were. Now imagine that this other person is the river. Wishing they were different just brings unhappiness.</li>\r\n<li>See them as they are and open your heart to them, just as they are. See them as a suffering human being, with flaws and habitual ways of acting that can be irritating, but are actually very human. How can you love humanity just as it is?</li>\r\n</ol>\r\n	\N	\N	\N
+12	Reward system			Put rewards in your life\r\nChunk into small pieces where you can easily measure and love doing it\r\nLets enjoy 75% of the life you own, we will not be happy always. Try to be happy as much as you can.\r\n\r\n__What to do today__\r\n* Note down whats more important and what your big goal is \r\n* Chunk into smaller pieces less than a week span and set a reward system, something you love\r\n	2018-02-26 15:32:36.139763	2018-02-26 15:32:36.139763	1	reward-system	\N	<p>Put rewards in your life\r\nChunk into small pieces where you can easily measure and love doing it\r\nLets enjoy 75% of the life you own, we will not be happy always. Try to be happy as much as you can.</p>\r\n<p><strong>What to do today</strong></p>\r\n<ul>\r\n<li>Note down whats more important and what your big goal is </li>\r\n<li>Chunk into smaller pieces less than a week span and set a reward system, something you love</li>\r\n</ul>\r\n	\N	\N	4
+13	Morning Ritual			This morning as you wake up, put your phone in airplane mode and better yet out of reach. Then do three simple things.\r\n* Take 4 deep breaths. Do them with a 4 second count in, 4 second hold, 4 second exhale and 4 second hold and repeat 3 times.\r\n* Think of two things you are grateful for and think about those, appreciate those two things.\r\n* Think of two things you want to accomplish today and envision them happening.	2018-02-26 16:01:52.625092	2018-02-26 16:01:52.625092	0	morning-ritual	\N	<p>This morning as you wake up, put your phone in airplane mode and better yet out of reach. Then do three simple things.</p>\r\n<ul>\r\n<li>Take 4 deep breaths. Do them with a 4 second count in, 4 second hold, 4 second exhale and 4 second hold and repeat 3 times.</li>\r\n<li>Think of two things you are grateful for and think about those, appreciate those two things.</li>\r\n<li>Think of two things you want to accomplish today and envision them happening.</li>\r\n</ul>\r\n	\N	\N	\N
+14	Adaptogens			Tulsi	2018-02-28 16:06:54.533362	2018-02-28 16:06:54.533362	0	adaptogens	\N	<p>Tulsi</p>\r\n	\N	\N	\N
+15	Eat to live	Perfect diet for healthy and long lifestyle		1. Plant based diet is better and protects against illness\r\n2. Beans contains high amount of resistant starch which helps weight loss\r\n3. Diet should comprise 90% plant based food (Beans, Plant greens and fruits)\r\n4. Eat through raw or steamed	2018-03-10 00:49:36.006025	2018-03-10 00:51:59.151325	0	eat-to-live	\N	<ol>\r\n<li>Plant based diet is better and protects against illness</li>\r\n<li>Beans contains high amount of resistant starch which helps weight loss</li>\r\n<li>Diet should comprise 90% plant based food (Beans, Plant greens and fruits)</li>\r\n<li>Eat through raw or steamed</li>\r\n</ol>\r\n	\N	\N	\N
+16	The pearl	Prepare yourself for the future today, and do not be a victim		1. Plan for scorpion ( Danger )\r\n2. Plan for pearl ( Reward )\r\n3. Do not take it personally of what ever happens for you today, and think what you can do right now to minimize the cost. \r\n\r\nThere will be days where you feel frustrated and you feel happy, and you should plan from now to how quickly you can \r\nsurvive from the danger thats coming. \r\n\r\nIt might be your own health or some one else who you care most. If you want to survive in that situation, \r\nyou should plan for that day from now today in this moment and days to come and only then you are safe \r\nfrom the danger thats coming. \r\n\r\nStart planning from today.	2018-03-10 02:58:11.304735	2018-03-10 02:58:11.304735	0	the-pearl	\N	<ol>\r\n<li>Plan for scorpion ( Danger )</li>\r\n<li>Plan for pearl ( Reward )</li>\r\n<li>Do not take it personally of what ever happens for you today, and think what you can do right now to minimize the cost. </li>\r\n</ol>\r\n<p>There will be days where you feel frustrated and you feel happy, and you should plan from now to how quickly you can \r\nsurvive from the danger thats coming. </p>\r\n<p>It might be your own health or some one else who you care most. If you want to survive in that situation, \r\nyou should plan for that day from now today in this moment and days to come and only then you are safe \r\nfrom the danger thats coming. </p>\r\n<p>Start planning from today.</p>\r\n	\N	\N	\N
+17	VRIN SCORE	Lets see your website is worth it		You have to grow your social media. A lot of people approach this from the wrong direction. To grow your social media following, you need to understand VRIN scores. V stands for value. R stands for rarity or how rare it is. I stands for inimitable and N stands for non-substitutable.\r\n \r\nValue means you are giving your followers what they are interested in. Your posts need to be reaching your audience's values. I know my audience values the good life, so I give them content that shows what success brings with it. People value the payoff of hard work and entrepreneurship, so I post my cars, my house and all the great things that my businesses have allowed me to buy.\r\n \r\nRarity is how many other accounts are out there posting similar content. The more content that you provide that not many people get to see, the more excited people will be when they see it. It’s common sense. Rarity is the amount of emotion that people get when they see your post.\r\n \r\nInimitable means your post is hard to recreate. It means that not only is it rare, it’s extremely unique and genuine. People can tell when what you’re posting is trying to be like someone else. You have to be unique, so others can’t reproduce what you’ve created.\r\n \r\nNon-substitutable is similar to rarity, but it also means that what your posting is relatively impossible to be replaced by something new. You need to create timeless content, so as time goes on, your post is still relevant.	2018-03-12 09:58:35.511571	2018-03-12 09:58:35.511571	1	vrin-score	\N	<p>You have to grow your social media. A lot of people approach this from the wrong direction. To grow your social media following, you need to understand VRIN scores. V stands for value. R stands for rarity or how rare it is. I stands for inimitable and N stands for non-substitutable.</p>\r\n<p>Value means you are giving your followers what they are interested in. Your posts need to be reaching your audience's values. I know my audience values the good life, so I give them content that shows what success brings with it. People value the payoff of hard work and entrepreneurship, so I post my cars, my house and all the great things that my businesses have allowed me to buy.</p>\r\n<p>Rarity is how many other accounts are out there posting similar content. The more content that you provide that not many people get to see, the more excited people will be when they see it. It’s common sense. Rarity is the amount of emotion that people get when they see your post.</p>\r\n<p>Inimitable means your post is hard to recreate. It means that not only is it rare, it’s extremely unique and genuine. People can tell when what you’re posting is trying to be like someone else. You have to be unique, so others can’t reproduce what you’ve created.</p>\r\n<p>Non-substitutable is similar to rarity, but it also means that what your posting is relatively impossible to be replaced by something new. You need to create timeless content, so as time goes on, your post is still relevant.</p>\r\n	\N	\N	6
+18	Craving vs hungry	Dopamine high 		Genes are actually playing a role in causing the cravings. \r\n\r\nUnderstand craving vs hunger\r\n\r\nhttps://www.youtube.com/watch?v=jX2btaDOBK8\r\n\r\nKeep your dopamine up. \r\n\r\nStop eating after 8pm and start after 8 am morning after . \r\nHighly fat people cant burn their fat very well cause their fat burning machines are dirty \r\nBy reducing amount of foods eat, that are nutritionally dense foods. (Salads) \r\nChewing them crazy.\r\nFat is a whole system problem.\r\n\r\nOvereat is the fastest way to dirty your genes. \r\n\r\nTip:\r\nBreath properly, if you have cold hands you are not breathing properly	2018-03-12 15:46:36.095004	2018-03-12 15:46:36.095004	0	craving-vs-hungry	\N	<p>Genes are actually playing a role in causing the cravings. </p>\r\n<p>Understand craving vs hunger</p>\r\n<p><a href="https://www.youtube.com/watch?v=jX2btaDOBK8">https://www.youtube.com/watch?v=jX2btaDOBK8</a></p>\r\n<p>Keep your dopamine up. </p>\r\n<p>Stop eating after 8pm and start after 8 am morning after . \r\nHighly fat people cant burn their fat very well cause their fat burning machines are dirty \r\nBy reducing amount of foods eat, that are nutritionally dense foods. (Salads) \r\nChewing them crazy.\r\nFat is a whole system problem.</p>\r\n<p>Overeat is the fastest way to dirty your genes. </p>\r\n<p>Tip:\r\nBreath properly, if you have cold hands you are not breathing properly</p>\r\n	\N	1	1
+19	Clean Gut	The Breakthrough Plan for Eliminating the Root Cause of Disease and Revolutionizing Your Health		* Avoid Gluten\r\n* Toxic Triggers (Alcohol, Sugar .. )\r\n* Nutrigenomics \r\n* Symtoms vs Root causes\r\n* Longer shell life the lesser your life\r\n\r\nWhole Foods - Toxic Triggers \r\n\r\n    Gut is second brain, 	2018-03-12 16:25:08.854599	2018-03-12 16:25:08.854599	0	clean-gut	\N	<ul>\r\n<li>Avoid Gluten</li>\r\n<li>Toxic Triggers (Alcohol, Sugar .. )</li>\r\n<li>Nutrigenomics </li>\r\n<li>Symtoms vs Root causes</li>\r\n<li>Longer shell life the lesser your life</li>\r\n</ul>\r\n<p>Whole Foods - Toxic Triggers </p>\r\n<pre><code>Gut is second brain, \r\n</code></pre>	\N	1	1
+31	sample			[{"type":"select","label":"Select","className":"form-control","name":"select-1530360456431","values":[{"label":"Option 1","value":"option-1","selected":true},{"label":"Option 2","value":"option-2"},{"label":"Option 3","value":"option-3"}]},{"type":"text","label":"Text Field","className":"form-control","name":"text-1530360455537","subtype":"text"},{"type":"radio-group","label":"Radio Group","name":"radio-group-1530360454962","values":[{"label":"Option 1","value":"option-1"},{"label":"Option 2","value":"option-2"},{"label":"Option 3","value":"option-3"}]},{"type":"date","label":"Date Field","className":"form-control","name":"date-1530360450372"},{"type":"paragraph","subtype":"p","label":"Paragraph"},{"type":"header","subtype":"h1","label":"Header"},{"type":"select","label":"Select","className":"form-control","name":"select-1530360453660","values":[{"label":"Option 1","value":"option-1","selected":true},{"label":"Option 2","value":"option-2"},{"label":"Option 3","value":"option-3"}]},{"type":"textarea","label":"Text Area","className":"form-control","name":"textarea-1530360457553","subtype":"textarea"},{"type":"button","subtype":"submit","label":"Button","className":"btn btn-default","name":"button-1530360462001","style":"default"}]	2018-06-30 12:07:50.234786	2018-06-30 12:08:05.495863	2	sample	\N	<div class="rendered-form"><div class="fb-select form-group field-select-1530360456431"><label for="select-1530360456431" class="fb-select-label">Select</label><select class="form-control" name="select-1530360456431" id="select-1530360456431"><option value="option-1" selected="true" id="select-1530360456431-0">Option 1</option><option value="option-2" id="select-1530360456431-1">Option 2</option><option value="option-3" id="select-1530360456431-2">Option 3</option></select></div><div class="fb-text form-group field-text-1530360455537"><label for="text-1530360455537" class="fb-text-label">Text Field</label><input type="text" class="form-control" name="text-1530360455537" id="text-1530360455537"></div><div class="fb-radio-group form-group field-radio-group-1530360454962"><label for="radio-group-1530360454962" class="fb-radio-group-label">Radio Group</label><div class="radio-group"><div class="radio"><input name="radio-group-1530360454962" id="radio-group-1530360454962-0" value="option-1" type="radio"><label for="radio-group-1530360454962-0">Option 1</label></div><div class="radio"><input name="radio-group-1530360454962" id="radio-group-1530360454962-1" value="option-2" type="radio"><label for="radio-group-1530360454962-1">Option 2</label></div><div class="radio"><input name="radio-group-1530360454962" id="radio-group-1530360454962-2" value="option-3" type="radio"><label for="radio-group-1530360454962-2">Option 3</label></div></div></div><div class="fb-date form-group field-date-1530360450372"><label for="date-1530360450372" class="fb-date-label">Date Field</label><input type="date" class="form-control" name="date-1530360450372" id="date-1530360450372"></div><div class=""><p id="control-1584468">Paragraph</p></div><div class=""><h1 id="control-3410408">Header</h1></div><div class="fb-select form-group field-select-1530360453660"><label for="select-1530360453660" class="fb-select-label">Select</label><select class="form-control" name="select-1530360453660" id="select-1530360453660"><option value="option-1" selected="true" id="select-1530360453660-0">Option 1</option><option value="option-2" id="select-1530360453660-1">Option 2</option><option value="option-3" id="select-1530360453660-2">Option 3</option></select></div><div class="fb-textarea form-group field-textarea-1530360457553"><label for="textarea-1530360457553" class="fb-textarea-label">Text Area</label><textarea type="textarea" class="form-control" name="textarea-1530360457553" id="textarea-1530360457553"></textarea></div><div class="fb-button form-group field-button-1530360462001"><button type="submit" class="btn btn-default" name="button-1530360462001" style="default" id="button-1530360462001">Button</button></div></div>	\N	\N	\N
+32	Document attestation			 Changes requested saved successfully.\r\nImportant! The variation between the date of birth in your Aadhaar and EPF database is more than one year. Hence, please submit an attested copy of any of the following documents by post/hand.\r\n1. Education certificate\r\n2. Certificate issued by Registrar (Birth)\r\n3. Passport\r\nDocument should be submitted on following address and please mention the following reference no. - GRVSP00704030000000034_5346032 on the attested photocopy of document.\r\nAddress of field office : 56-16-86, Maripalem VUDA Layout, NAD Post, Visakhapatnam - 530009\r\nDocument should reach feild office within 15 days.	2018-07-02 06:11:59.838018	2018-07-02 06:11:59.838018	0	document-attestation	\N	<p> Changes requested saved successfully.\r\nImportant! The variation between the date of birth in your Aadhaar and EPF database is more than one year. Hence, please submit an attested copy of any of the following documents by post/hand.</p>\r\n<ol>\r\n<li>Education certificate</li>\r\n<li>Certificate issued by Registrar (Birth)</li>\r\n<li>Passport\r\nDocument should be submitted on following address and please mention the following reference no. - GRVSP00704030000000034_5346032 on the attested photocopy of document.\r\nAddress of field office : 56-16-86, Maripalem VUDA Layout, NAD Post, Visakhapatnam - 530009\r\nDocument should reach feild office within 15 days.</li>\r\n</ol>\r\n	\N	\N	\N
+21	Slow food manifesto			<ol>\r\n<li><strong>Lose weight</strong>. A <a href="http://www.usatoday.com/news/health/2006-11-15-slower-eating_x.htm">growing</a> <a href="http://www.post-gazette.com/pg/04223/359071.stm">number</a> of <a href="http://www.medicinenet.com/script/main/art.asp?articlekey=55876">studies</a> confirm that just by eating slower, you’ll consume fewer calories — in fact, enough to lose 20 pounds a year without doing anything different or eating anything different. The reason is that it takes about 20 minutes for our brains to register that we’re full. If we eat fast, we can continue eating past the point where we’re full. If we eat slowly, we have time to realize we’re full, and stop on time. Now, I would still recommend that you eat healthier foods, but if you’re looking to lose weight, eating slowly should be a part of your new lifestyle.</li>\r\n<li><strong>Enjoy your food</strong>. This reason is just as powerful, in my opinion. It’s hard to enjoy your food if it goes by too quickly. In fact, I think it’s fine to eat sinful foods, if you eat a small amount slowly. Think about it: you want to eat sinful foods (desserts, fried foods, pizza, etc.) because they taste good. But if you eat them fast, what’s the point? If you eat them slowly, you can get the same amount of great taste, but with less going into your stomach. That’s math that works for me. And that argument aside, I think you are just happier by tasting great food and enjoying it fully, by eating slowly. Make your meals a gastronomic pleasure, not a thing you do rushed, between stressful events.</li>\r\n<li><strong>Better digestion</strong>. If you eat slower, you’ll chew your food better, which leads to better digestion. Digestion actually starts in the mouth, so the more work you do up there, the less you’ll have to do in your stomach. This can help lead to fewer digestive problems.</li>\r\n<li><strong>Less stress</strong>. Eating slowly, and paying attention to our eating, can be a great form of <a href="https://zenhabits.net/2007/07/5-inspirations-for-being-in-the-moment/">mindfulness exercise</a>. Be in the moment, rather than rushing through a meal thinking about what you need to do next. When you eat, you should eat. This kind of mindfulness, I believe, will lead to a less stressful life, and long-term happiness. Give it a try.</li>\r\n<li><strong>Rebel against fast food and fast life</strong>. Our hectic, fast-paced, stressful, chaotic lives — the Fast Life — leads to eating Fast Food, and eating it quickly. This is a lifestyle that is dehumanizing us, making us unhealthy, stressed out, and unhappy. We rush through our day, doing one mindless task after another, without taking the time to live life, to enjoy life, to relate to each other, to be human. That’s not a good thing in my book. Instead, rebel against that entire lifestyle and philosophy … with the small act of eating slower. Don’t eat Fast Food. Eat at a good restaurant, or better yet, cook your own food and enjoy it fully. Taste life itself.</li>\r\n</ol>\r\n	2018-03-13 17:33:14.651416	2018-03-13 17:34:26.403277	0	slow-food-manifesto	\N	<ol>\r\n<li><strong>Lose weight</strong>. A <a href="http://www.usatoday.com/news/health/2006-11-15-slower-eating_x.htm">growing</a> <a href="http://www.post-gazette.com/pg/04223/359071.stm">number</a> of <a href="http://www.medicinenet.com/script/main/art.asp?articlekey=55876">studies</a> confirm that just by eating slower, you’ll consume fewer calories — in fact, enough to lose 20 pounds a year without doing anything different or eating anything different. The reason is that it takes about 20 minutes for our brains to register that we’re full. If we eat fast, we can continue eating past the point where we’re full. If we eat slowly, we have time to realize we’re full, and stop on time. Now, I would still recommend that you eat healthier foods, but if you’re looking to lose weight, eating slowly should be a part of your new lifestyle.</li>\r\n<li><strong>Enjoy your food</strong>. This reason is just as powerful, in my opinion. It’s hard to enjoy your food if it goes by too quickly. In fact, I think it’s fine to eat sinful foods, if you eat a small amount slowly. Think about it: you want to eat sinful foods (desserts, fried foods, pizza, etc.) because they taste good. But if you eat them fast, what’s the point? If you eat them slowly, you can get the same amount of great taste, but with less going into your stomach. That’s math that works for me. And that argument aside, I think you are just happier by tasting great food and enjoying it fully, by eating slowly. Make your meals a gastronomic pleasure, not a thing you do rushed, between stressful events.</li>\r\n<li><strong>Better digestion</strong>. If you eat slower, you’ll chew your food better, which leads to better digestion. Digestion actually starts in the mouth, so the more work you do up there, the less you’ll have to do in your stomach. This can help lead to fewer digestive problems.</li>\r\n<li><strong>Less stress</strong>. Eating slowly, and paying attention to our eating, can be a great form of <a href="https://zenhabits.net/2007/07/5-inspirations-for-being-in-the-moment/">mindfulness exercise</a>. Be in the moment, rather than rushing through a meal thinking about what you need to do next. When you eat, you should eat. This kind of mindfulness, I believe, will lead to a less stressful life, and long-term happiness. Give it a try.</li>\r\n<li><strong>Rebel against fast food and fast life</strong>. Our hectic, fast-paced, stressful, chaotic lives — the Fast Life — leads to eating Fast Food, and eating it quickly. This is a lifestyle that is dehumanizing us, making us unhealthy, stressed out, and unhappy. We rush through our day, doing one mindless task after another, without taking the time to live life, to enjoy life, to relate to each other, to be human. That’s not a good thing in my book. Instead, rebel against that entire lifestyle and philosophy … with the small act of eating slower. Don’t eat Fast Food. Eat at a good restaurant, or better yet, cook your own food and enjoy it fully. Taste life itself.</li>\r\n</ol>\r\n	\N	5	\N
+22	Exercise mindset			__Why ? __\r\n\r\nIt felt so good 30% more productive than who does exercise to lose weight\r\n\r\n__Mindset__\r\nMake things as fun not something like chore and enjoy the feeling of what you were doing\r\n\r\n\r\n__References__\r\nNo sweat by michelle segar	2018-03-14 02:49:42.056174	2018-03-14 02:49:42.056174	0	exercise-mindset	\N	<p><strong>Why ? </strong></p>\r\n<p>It felt so good 30% more productive than who does exercise to lose weight</p>\r\n<p><strong>Mindset</strong>\r\nMake things as fun not something like chore and enjoy the feeling of what you were doing</p>\r\n<p><strong>References</strong>\r\nNo sweat by michelle segar</p>\r\n	\N	\N	1
+23	Resistance training	exercise that can help to retain muscle during calorie deficit			2018-03-14 08:40:06.864092	2018-03-14 08:40:06.864092	0	resistance-training	\N		\N	\N	\N
+33	Notice and name	One secret to a lean and healthy body: Paying attention.		Today, we're going to give you a ridiculously simple and easy — but potentially powerful — tool.\r\n\r\nIt's not a diet or workout trick. It's a brain trick.\r\n\r\nWe call it "notice and name".\r\n\r\nYup, it's just that basic. Stay with us here.\r\n\r\n__What's going on?__\r\n\r\nWhat are you doing ... right now?\r\n\r\nWhat are you thinking ... right now?\r\n\r\nWhat's around you ... right now?\r\n\r\nIf you're like most people, you're probably not completely sure.\r\n\r\nYou might be trying to answer an email while listening to music or talking on the phone or, heaven forbid, driving. You're probably kinda checked out most of the time, trying to multi-task and juggle all the demands on your attention.\r\n\r\nOur brain makes thousands of small decisions every day. Most of them are automatic and unconscious.\r\n\r\nThe upside is that we can repeat patterns — like driving, tying our shoelaces, and brushing our teeth.\r\n\r\nThe downside is that we can repeat patterns — like mindless munching, using booze or junk food to de-stress, or grabbing another round of take-out for another rushed lunch break.\r\n\r\nWe don't make bad food decisions because we're dumb or lazy. (In fact, if you're still here, you're obviously smart and willing to work hard.)\r\n\r\nWe make bad food decisions because they're automatic. Because we're distracted. Because we're rushing and busy. Because we're human, just trying to get through another day.\r\n\r\nAnd automatic choices minus attention plus rushed eating and busy-ness usually equals over-eating crap or skipping meals.\r\n\r\nLuckily, there's a simple solution: Notice and name.\r\n\r\n\r\n__Notice and name__\r\n\r\nNoticing just means pausing to pay attention.\r\n\r\nWhat's going on right now? What am I doing?\r\n\r\nNaming just means you take an extra moment to describe the situation to yourself. Call it out.\r\n\r\nOh, right, I'm feeling rushed, and that means I'm more likely to grab junk.\r\n\r\n\r\n__How the heck does that help me?__\r\n\r\nWhen we slow down, pause, and pay attention, we put our conscious, thinky brain in charge instead of our unconscious, automatic brain.\r\n\r\nWe're able to make more informed choices. Like picking healthy food.\r\n\r\nWe feel more in control of our actions — more able to do those behavior goals we've set for ourselves. We're calmer.\r\n\r\nWe notice little things, like the way we're rushing through a meal.\r\n\r\nWe place our attention on our goals, rather than having it pulled.\r\n\r\n\r\nAnd when we name the situation, we call it out. Hold ourselves accountable, without judgement. Just observation.\r\n\r\nDude, you're doing that thing again.\r\n\r\nOops. Right.\r\n\r\nNoticing that.\r\n\r\nOK, I'm taking a second to regroup.\r\n\r\nBack on track.\r\n\r\n\r\n\r\n__Try a 5-minute "notice and name" today__\r\n\r\nToday, do a little noticing and naming.\r\n\r\nWhether you’re making a sandwich, or just getting on with your day, set aside 5 minutes to just… pay attention.\r\n\r\nWhat are your patterns?\r\n\r\nWhat do you "just find yourself" doing?\r\n\r\nWhat's happening right now?\r\n\r\nWhat's distracting you — and how can you re-focus on your goals?\r\n\r\nHow does that sandwich taste? What's the texture like? (Give it a few extra chews and think about it.)\r\n\r\n\r\n	2018-07-09 15:55:38.73462	2018-07-09 15:55:38.73462	0	notice-and-name	\N	<p>Today, we're going to give you a ridiculously simple and easy — but potentially powerful — tool.</p>\r\n<p>It's not a diet or workout trick. It's a brain trick.</p>\r\n<p>We call it "notice and name".</p>\r\n<p>Yup, it's just that basic. Stay with us here.</p>\r\n<p><strong>What's going on?</strong></p>\r\n<p>What are you doing ... right now?</p>\r\n<p>What are you thinking ... right now?</p>\r\n<p>What's around you ... right now?</p>\r\n<p>If you're like most people, you're probably not completely sure.</p>\r\n<p>You might be trying to answer an email while listening to music or talking on the phone or, heaven forbid, driving. You're probably kinda checked out most of the time, trying to multi-task and juggle all the demands on your attention.</p>\r\n<p>Our brain makes thousands of small decisions every day. Most of them are automatic and unconscious.</p>\r\n<p>The upside is that we can repeat patterns — like driving, tying our shoelaces, and brushing our teeth.</p>\r\n<p>The downside is that we can repeat patterns — like mindless munching, using booze or junk food to de-stress, or grabbing another round of take-out for another rushed lunch break.</p>\r\n<p>We don't make bad food decisions because we're dumb or lazy. (In fact, if you're still here, you're obviously smart and willing to work hard.)</p>\r\n<p>We make bad food decisions because they're automatic. Because we're distracted. Because we're rushing and busy. Because we're human, just trying to get through another day.</p>\r\n<p>And automatic choices minus attention plus rushed eating and busy-ness usually equals over-eating crap or skipping meals.</p>\r\n<p>Luckily, there's a simple solution: Notice and name.</p>\r\n<p><strong>Notice and name</strong></p>\r\n<p>Noticing just means pausing to pay attention.</p>\r\n<p>What's going on right now? What am I doing?</p>\r\n<p>Naming just means you take an extra moment to describe the situation to yourself. Call it out.</p>\r\n<p>Oh, right, I'm feeling rushed, and that means I'm more likely to grab junk.</p>\r\n<p><strong>How the heck does that help me?</strong></p>\r\n<p>When we slow down, pause, and pay attention, we put our conscious, thinky brain in charge instead of our unconscious, automatic brain.</p>\r\n<p>We're able to make more informed choices. Like picking healthy food.</p>\r\n<p>We feel more in control of our actions — more able to do those behavior goals we've set for ourselves. We're calmer.</p>\r\n<p>We notice little things, like the way we're rushing through a meal.</p>\r\n<p>We place our attention on our goals, rather than having it pulled.</p>\r\n<p>And when we name the situation, we call it out. Hold ourselves accountable, without judgement. Just observation.</p>\r\n<p>Dude, you're doing that thing again.</p>\r\n<p>Oops. Right.</p>\r\n<p>Noticing that.</p>\r\n<p>OK, I'm taking a second to regroup.</p>\r\n<p>Back on track.</p>\r\n<p><strong>Try a 5-minute "notice and name" today</strong></p>\r\n<p>Today, do a little noticing and naming.</p>\r\n<p>Whether you’re making a sandwich, or just getting on with your day, set aside 5 minutes to just… pay attention.</p>\r\n<p>What are your patterns?</p>\r\n<p>What do you "just find yourself" doing?</p>\r\n<p>What's happening right now?</p>\r\n<p>What's distracting you — and how can you re-focus on your goals?</p>\r\n<p>How does that sandwich taste? What's the texture like? (Give it a few extra chews and think about it.)</p>\r\n	\N	\N	\N
+24	What makes us different			- Environment\r\n- Epigenetics\r\n- Microbiome \r\nMakes us different\r\nhttps://www.drbenlynch.com/wp-content/uploads/2017/07/TACA-genetics.pdf\r\n\r\nDopamine is the one that we should solve to change in behaviours \r\nDouglas Lisle\r\nhttps://www.youtube.com/watch?v=jX2btaDOBK8\r\n- Food trap (http://www.uphs.upenn.edu/addiction/berman/neuro/dopamine.html)\r\n- Dopamine effect\r\n\r\nHistamine build up and face goes red for sometime \r\n	2018-03-22 16:06:30.464238	2018-03-22 16:07:19.795202	0	what-makes-us-different	\N	<ul>\r\n<li>Environment</li>\r\n<li>Epigenetics</li>\r\n<li>Microbiome \r\nMakes us different\r\n<a href="https://www.drbenlynch.com/wp-content/uploads/2017/07/TACA-genetics.pdf">https://www.drbenlynch.com/wp-content/uploads/2017/07/TACA-genetics.pdf</a></li>\r\n</ul>\r\n<p>Dopamine is the one that we should solve to change in behaviours \r\nDouglas Lisle\r\n<a href="https://www.youtube.com/watch?v=jX2btaDOBK8">https://www.youtube.com/watch?v=jX2btaDOBK8</a></p>\r\n<ul>\r\n<li>Food trap (<a href="http://www.uphs.upenn.edu/addiction/berman/neuro/dopamine.html">http://www.uphs.upenn.edu/addiction/berman/neuro/dopamine.html</a>)</li>\r\n<li>Dopamine effect</li>\r\n</ul>\r\n<p>Histamine build up and face goes red for sometime </p>\r\n	\N	\N	1
+25	PN REsources			https://www.facebook.com/notes/precision-nutrition-certification-students-grads/pn-cert-important-links/1946252312271799/	2018-03-22 17:26:33.356071	2018-03-22 17:26:33.356071	0	pn-resources	\N	<p><a href="https://www.facebook.com/notes/precision-nutrition-certification-students-grads/pn-cert-important-links/1946252312271799/">https://www.facebook.com/notes/precision-nutrition-certification-students-grads/pn-cert-important-links/1946252312271799/</a></p>\r\n	\N	\N	\N
+28	Lifestyle program			How to start your day off the right way to rev your metabolism.\r\nFinding time to exercise, and why it doesn’t have to be hours a day.\r\nStaying hydrated throughout the day, and ideas to make it more appealing.\r\nStocking up on healthy snacks, and eating on the go.\r\nHow a little planning ahead sets you up for success.\r\nThe importance of adequate sleep for health and weight loss.\r\nThe benefits of mindful eating, and how to begin.	2018-03-28 17:37:46.568489	2018-03-28 17:37:46.568489	0	lifestyle-program	\N	<p>How to start your day off the right way to rev your metabolism.\r\nFinding time to exercise, and why it doesn’t have to be hours a day.\r\nStaying hydrated throughout the day, and ideas to make it more appealing.\r\nStocking up on healthy snacks, and eating on the go.\r\nHow a little planning ahead sets you up for success.\r\nThe importance of adequate sleep for health and weight loss.\r\nThe benefits of mindful eating, and how to begin.</p>\r\n	\N	\N	\N
+26	Better Sleep			* Feel more alert and better if you wakeup from light sleep stage\r\n* Ventilate more with sunlight along side bed this raises cortisol\r\n* Alcohol may affect your night sleep\r\n* Exercise helps and optimize hormones levels\r\n* Whatever thoughts are in your head, clearthem out and into paper. This perpares for genuine relaxation\r\n* Sticking to reasonable bedtime have better control on calming harmones that will help fall asleep\r\n* Turnoff electronics\r\n* De stress\r\n* Bath or shower\r\n* Neutral temperature room\r\n* Room as dark as possible\r\n* 	2018-03-24 16:54:15.852555	2018-03-24 16:54:15.852555	0	better-sleep	\N	<ul>\r\n<li>Feel more alert and better if you wakeup from light sleep stage</li>\r\n<li>Ventilate more with sunlight along side bed this raises cortisol</li>\r\n<li>Alcohol may affect your night sleep</li>\r\n<li>Exercise helps and optimize hormones levels</li>\r\n<li>Whatever thoughts are in your head, clearthem out and into paper. This perpares for genuine relaxation</li>\r\n<li>Sticking to reasonable bedtime have better control on calming harmones that will help fall asleep</li>\r\n<li>Turnoff electronics</li>\r\n<li>De stress</li>\r\n<li>Bath or shower</li>\r\n<li>Neutral temperature room</li>\r\n<li>Room as dark as possible</li>\r\n<li></li>\r\n</ul>\r\n	\N	\N	1
+27	Talent Economics Meet 25th march			* Checkup amazon credentials\r\n* talenteconomics777\r\n* remove benchmarking database from main website (not now)\r\n* Migrate old benchmarking database (after that call)	2018-03-25 03:39:51.674646	2018-03-25 03:39:51.674646	0	talent-economics-meet-25th-march	\N	<ul>\r\n<li>Checkup amazon credentials</li>\r\n<li>talenteconomics777</li>\r\n<li>remove benchmarking database from main website (not now)</li>\r\n<li>Migrate old benchmarking database (after that call)</li>\r\n</ul>\r\n	\N	\N	\N
+36	Learnings			1) Save money for rainy day \r\n2) Travel more 	2018-08-23 02:46:23.472797	2018-08-23 02:46:23.472797	0	learnings	\N	<p>1) Save money for rainy day \r\n2) Travel more </p>\r\n	\N	\N	\N
+30	Change font 	https://www.developgoodhabits.com/morning-routine-habits/		https://www.developgoodhabits.com/morning-routine-habits/	2018-04-23 14:49:12.093922	2018-04-23 14:49:12.093922	0	change-font	\N	<p><a href="https://www.developgoodhabits.com/morning-routine-habits/">https://www.developgoodhabits.com/morning-routine-habits/</a></p>\r\n	\N	\N	\N
+34	Affiliate market			- Do research on trends\r\ntwitter, facebook, trends.google.com\r\n\r\n- Create content on trending products	2018-07-27 17:46:47.693376	2018-07-27 17:46:47.693376	0	affiliate-market	\N		\N	\N	\N
+35				[{"type":"paragraph","subtype":"p","label":"Paragraph"},{"type":"checkbox-group","label":"Checkbox Group","name":"checkbox-group-1534143536299","values":[{"label":"Option 1","value":"option-1","selected":true}]},{"type":"checkbox-group","label":"Checkbox Group","name":"checkbox-group-1534143483523","values":[{"label":"Option 1","value":"option-1","selected":true}]},{"type":"checkbox-group","label":"Checkbox Group","name":"checkbox-group-1534143639553","values":[{"label":"Option 1","value":"option-1","selected":true}]},{"type":"select","label":"Select","className":"form-control","name":"select-1534143550593","values":[{"label":"Option 1","value":"option-1"},{"label":"Option 2","value":"option-2"},{"label":"Option 3","value":"option-3"}]},{"type":"select","label":"Select","className":"form-control","name":"select-1534143633365","values":[{"label":"Option 1","value":"option-1","selected":true},{"label":"Option 2","value":"option-2"},{"label":"Option 3","value":"option-3"}]},{"type":"file","label":"File Upload","className":"form-control","name":"file-1534143481939","subtype":"file"}]	2018-08-13 07:00:48.374841	2018-08-13 07:00:48.374841	2	ad3257d8-2edb-4a4d-9853-0bca796c13dd	\N	<div class="rendered-form"><div class=""><p id="control-6825703">Paragraph</p></div><div class="fb-checkbox-group form-group field-checkbox-group-1534143536299"><label for="checkbox-group-1534143536299" class="fb-checkbox-group-label">Checkbox Group</label><div class="checkbox-group"><div class="checkbox"><input name="checkbox-group-1534143536299[]" id="checkbox-group-1534143536299-0" value="option-1" type="checkbox" checked="checked"><label for="checkbox-group-1534143536299-0">Option 1</label></div></div></div><div class="fb-checkbox-group form-group field-checkbox-group-1534143483523"><label for="checkbox-group-1534143483523" class="fb-checkbox-group-label">Checkbox Group</label><div class="checkbox-group"><div class="checkbox"><input name="checkbox-group-1534143483523[]" id="checkbox-group-1534143483523-0" value="option-1" type="checkbox" checked="checked"><label for="checkbox-group-1534143483523-0">Option 1</label></div></div></div><div class="fb-checkbox-group form-group field-checkbox-group-1534143639553"><label for="checkbox-group-1534143639553" class="fb-checkbox-group-label">Checkbox Group</label><div class="checkbox-group"><div class="checkbox"><input name="checkbox-group-1534143639553[]" id="checkbox-group-1534143639553-0" value="option-1" type="checkbox" checked="checked"><label for="checkbox-group-1534143639553-0">Option 1</label></div></div></div><div class="fb-select form-group field-select-1534143550593"><label for="select-1534143550593" class="fb-select-label">Select</label><select class="form-control" name="select-1534143550593" id="select-1534143550593"><option value="option-1" id="select-1534143550593-0">Option 1</option><option value="option-2" id="select-1534143550593-1">Option 2</option><option value="option-3" id="select-1534143550593-2">Option 3</option></select></div><div class="fb-select form-group field-select-1534143633365"><label for="select-1534143633365" class="fb-select-label">Select</label><select class="form-control" name="select-1534143633365" id="select-1534143633365"><option value="option-1" selected="true" id="select-1534143633365-0">Option 1</option><option value="option-2" id="select-1534143633365-1">Option 2</option><option value="option-3" id="select-1534143633365-2">Option 3</option></select></div><div class="fb-file form-group field-file-1534143481939"><label for="file-1534143481939" class="fb-file-label">File Upload</label><input type="file" class="form-control" name="file-1534143481939" id="file-1534143481939"></div></div>	\N	\N	\N
+29	Talent Economics Meet 4th April			* Delete assessment page\r\n\r\n* Become a practioner\r\n* Buy credits\r\n* Start a project ( Assign project to pracitoner - ask email, and gyan )\r\n* Future Ready Talent Cultures: Test mode 46 questions, 10 groups, Benchmark\r\nDistributed Innovation, Test Assessment ( Final Phase)\r\n\r\n\r\n	2018-04-04 02:50:47.340701	2018-04-04 02:50:47.340701	0	talent-economics-meet-4th-april	\N	<ul>\r\n<li><p>Delete assessment page</p>\r\n</li>\r\n<li><p>Become a practioner</p>\r\n</li>\r\n<li>Buy credits</li>\r\n<li>Start a project ( Assign project to pracitoner - ask email, and gyan )</li>\r\n<li>Future Ready Talent Cultures: Test mode 46 questions, 10 groups, Benchmark\r\nDistributed Innovation, Test Assessment ( Final Phase)</li>\r\n</ul>\r\n	\N	\N	\N
+10	weight loss			\r\n1) Mindset\r\n2) Exercise \r\n3) Meditate, and calm down. Stress makes you gain weight \r\n4) I am worth worthy, selfconfident\r\n5) Know your why ?\r\n5) You dont need another diet system\r\n\r\nInsulin low : Low carbs, hight protein, high fat diet (Ketogenic)\r\nCortisol: (want it to be middle ). cortosol high in morning, low in night .(If cortosol high then it stores fat) Proper sleep required\r\nAstrogen: Flax seeds, cauliflower makes lesser astrogen and helps weight loss\r\n\r\nFunctional medicine\r\n: Toxins have an affect on weight loss (Clean air - 80% toxins from air, clean water, clean food)\r\n: Leptin\r\n\r\nBiomedical Engineer\r\nEpigenetics decide wheather to make fat cell or muscle cell\r\n\r\n__http://stewartlonky.com/video/__\r\n\r\nhttp://drgullo.org/\r\n\r\nConstipation might reduce your belly fat \r\nhttps://jillianteta.com/free-programs-education/\r\n* stay hydrated to make bowel not to dry and make liver more suffer through constipation because liver is the main resource to lose  belly fat through beta oxidation\r\n* Squati pati [click here](https://wakeup-world.com/2013/07/13/why-you-should-squat-for-better-digestive-health/)\r\n* Probiotics when gut feels wrong, but for normal people more veggies, fermented foods is enough\r\n* Eating slowly ( Reduces over consumption, helps digestive track breakdown food )\r\n\r\n\r\n5 Obesogens: Artificial Chemicals That Make You Fat\r\n* Avoid foods and beverages that have been stored in plastic containers.\r\n* Use stainless steel or quality aluminum water bottles instead of plastic.\r\n* Do not feed your babies from plastic bottles. Use glass bottles instead.\r\n* Instead of non-stick cookware, use cast iron or stainless steel.\r\n* Use organic, natural cosmetics.\r\n\r\nWhen stressed :\r\n- Instead of wine or something try some exercise, pushup \r\n- Instead of going for that shit ass snack, go for exercise, walk\r\n- Stop buying oreo's \r\n- If you want to eat sweet go for fructose (fruits, strawberries, blueberries)\r\nRef: https://www.davidwygant.com/podcast/episode-381-lose-weight-today/?inf_contact_key=2f9f9b133d42c28c576af065359e10a2b51696e69e7fca6799d1b117262e893a\r\n- Cauliflower pizza instead of something brag \r\n- No carbs at night.\r\n- Save only for weekends - wine\r\n\r\nWhen stressed: (http://venus.farewellfaddiets.com) (Naturally decrease your cortisol levels)\r\n- Cortisol goes high, and so sugar goes high and increase weight gain\r\n- More authentic connection with respect to your spouse, less cortisol. (Good hug can decrease your cortisol levels) \r\n- Take some big deep breaths, decrease your cortisol levels when you are in stress.\r\n- Before go to bed. Start writing 5 things what you are greatful (Gratitude)\r\n- Insulin resistance (Diabetes )\r\n- Cravings increase. \r\n- Cortisol goes back down - adrinal gland. \r\n- Listening music, meditate can decrease your cortisol levels\r\n- Feedback mechanism (Hypotelamus, adrenal level) \r\n\r\n\r\nFor every Diet there's equal binge\r\nhttps://www.kristenpoczulp.com/free-report.html\r\n\r\n\r\nLisa report\r\nPhase 1: Laying the Foundation:\r\nDetermine your starting point and your readiness for change (Don’t feel 100% ready? Don’t worry! I’ll meet you where you are and guide you on your path).\r\nDisarm the negative voice in your head that’s been sabotaging your weight loss efforts and holding you back in all areas of your life.\r\nSet yourself up for a series of small (but essential) victories that will create the momentum you need to complete and sustain your weight loss goals!\r\n \r\nPhase 2: Thinking Yourself Thin\r\nIdentify and eliminate perfectionism because none of us are perfect, and beating ourselves up for not being so is a recipe for disaster. It’s perfectionism that leads to weight gain and poor self-esteem. So we’ll kick it to the curb!\r\nIdentify and eliminate blocks and create the mindset needed to lose weight and feel amazing for your whole life.\r\nCreate quick and easy rituals that jump-start your metabolism and energy every single day for maximum results.\r\n \r\nPhase 3: Building the Food Framework:\r\nCreate and follow a real-food plan designed to make healthy eating simple, and automatic (without being based on sacrifice or requiring ingredients that no real kitchen actually has!)\r\nHelp you become a mindful eater so you can stop eating when you’re physically satisfied and establish healthy portion control. You’ll learn your own “body language”- the messages your body sends and how to interpret them.\r\nLearn how to identify the difference between physical hunger and emotional hunger.\r\n \r\nPhase 4: Developing the Exercise Plan:\r\nChoose the right exercise plan for you that fits into your busy schedule.\r\nSTOP thinking you need to spend hours at the gym. You’ll be shocked at how easy this really is and how little is actually required.\r\nImplement a fun and do-able exercise plan that you’ll actually stick to! This is about designing a plan that doesn’t feel like work and is a seamless addition to your current schedule and lifestyle.\r\n \r\nPhase 5: Staying on Track\r\nDive deep to uncover the root causes of emotional eating and diet “relapse.”\r\nIncorporate planned indulgences into your otherwise healthy diet, instead of depriving yourself (which we all know doesn’t work long-term).\r\nGet into your grocery groove! Ensuring that your shopping habits don’t get in the way of your weight loss.\r\nPhase 6: Living in Your Dream Bod!\r\nIdentify the people in your life that will support you in maintaining your new, healthy, and empowered life!\r\nImplement follow-through strategies to support you in all aspects of your life.\r\n\r\n\r\nDr walsh fat is not your fault\r\n1) Cortisol\r\nWhy someone may "hypothelamus" - appetite, talks with petutary gland\r\n* (told from crh) adrenal gland - through acth (with receptor) from hypothelamus. hypothelamus receives signal from neurotransmitter, immune system, molecules & harmones low cortisol -> means adrenal glands are told to not make cortisol. (hypothelamus through crh sends signal pituatary gland -> acth from pituatary glad to adrenal gland)If pituatary gland not functioning properly then pituatary gland cant send signal to adrenals\r\n* Adsense disease (autoimmune condition that sophs cortisol). Kushine(Autoimmune condition that enhances cortisol at adrenal glands)\r\n* Waking up at night, cravings for sugar -cortisol evaluation\r\n* Cholesterol : Adrenal glands takes cholesterol and with some conversions (Pregmentalone(projesterone(aldestrone, cortisol), dhea(andro(testosterone(estragen, diht))))(is limited) - enzyme)\r\n* pregnetalone can be converted more into cortisol and leads to dhea enzymes low.(sex harmones low)\r\n* Adrenal glands has receptors for interlucin 6 which might signals adrenalin glands to signal raise cortisol\r\n* if DHEA is low cortisol is high then pregnetalone goes left side more.\r\n*\r\n- Cortisol goes from high to low (cortisol sardium level) from morning to evening\r\n- melatonin goes from low to high which is inverse of cortisol.\r\n\r\nHow to check if cortisol ?\r\n - Symptoms (forms)\r\n - Salavary harmone test profile (Free cortisol test) \r\n[ All day cortisol low = blood sugar issues & hard time getting out of bed ,\r\n  All day cortisol high = blood sugar issues & hard time sleeping at night & easily get out of bed but feels not having enough sleep at night,\r\n  Altered circadian rhythm = high at night . Something causing this issue with brain . Forget last night things but can remember long times = Hippacampus damage ]\r\n\r\nWhat to do -\r\nBelow supplements for 30 days and check if cortisol is normal and retest without below supplements and if fixed then it fixed permanently.\r\n high cortisol = Phosphotelin serum, Adaptogens, Potassium in dosage \r\n low cortisol = Licorice root, Adaptogens, Na+, \r\n Rhythm cortisol (altered circadian rhythm) = Phosphotelin serum, Acetel coa, Adaptogens, Exercise (Aerobic/ Anaerobic)\r\n\r\nRefer : Eldastrone \r\n\r\n__Timferris weight loss technique: __\r\n[Harajuku movement](http://chadfowler.com/life,/weightloss/2011/03/15/the-harajuku-moment.html)\r\n\r\n__Low carb diets not work for you __\r\nhttps://www.precisionnutrition.com/low-carb-diets\r\n\r\n__Russian Kettleball swing with occams protocol method __ Do research 4hourbody\r\n\r\n\r\n1) Diet \r\n2) Exercise - Toxicity, (Lift weights - Cellular function), neurotransmitters (Mood), Insulin\r\n3) Symptoms \r\n4) Testing ( Good quality blood chemistry , Salivary hormone , Stool Testing, Intestinal permeability, Organic acid test \r\n5) [Mind, Body]Visualize / Meditating [Brain, stress]\r\n6) Sleep\r\n7) 4R Program (Elimination diet - [Cortisol, immune system, insulin], Anti Microbial- [Liver], HCL & Enzymes [Cellular] , Repair[Immune, Thyroid, Hormones], Probiotics - [Immune, Hormones]) \r\n8) Clean - [Non toxic] air purifier, water purifier, Organic foods, personal care products, Liver/Gallblader function\r\n9) Glutathione ( Intra cellular antioxidant )\r\n10) Neuro Transmitters \r\n\r\n\r\nDiet without exercise => You'll lose weight and muscle.\r\nExercise without diet => You'll probably healthier but not much weight loss\r\n\r\n\r\n__Supplements__\r\n_No stimulant experience:_ Take caffeine (100 – 400 mg) until tolerance builds up, then add synephrine (two doses of 10 mg each) and white willow extract (two doses of 90 mg of salicin each). People not used to caffeine should start at the low end of the dosage range. After synephrine and white willow extract are added, the caffeine dose should be changed to two doses of 150 – 200 mg each.\r\n_Stimulant experience:_ Take caffeine (two doses of 200 mg each) and synephrine (two doses of 20 mg each), with white willow extract (two doses, each of 90\r\nmg of salicin). Maintain this supplement protocol for a week before introducing yohimbine (2.5 mg, twice a day, increasing to 2.7 mg, twice a day, over the course of a week). Add Coleus forskohlii if 7.5 mg of daily yohimbine causes no significant side effects.\r\n\r\n	2018-02-13 17:53:23.43463	2018-08-16 14:49:01.461618	0	weight-loss	\N	<p>1) Mindset\r\n2) Exercise \r\n3) Meditate, and calm down. Stress makes you gain weight \r\n4) I am worth worthy, selfconfident\r\n5) Know your why ?\r\n5) You dont need another diet system</p>\r\n<p>Insulin low : Low carbs, hight protein, high fat diet (Ketogenic)\r\nCortisol: (want it to be middle ). cortosol high in morning, low in night .(If cortosol high then it stores fat) Proper sleep required\r\nAstrogen: Flax seeds, cauliflower makes lesser astrogen and helps weight loss</p>\r\n<p>Functional medicine\r\n: Toxins have an affect on weight loss (Clean air - 80% toxins from air, clean water, clean food)\r\n: Leptin</p>\r\n<p>Biomedical Engineer\r\nEpigenetics decide wheather to make fat cell or muscle cell</p>\r\n<p><strong><a href="http://stewartlonky.com/video/">http://stewartlonky.com/video/</a></strong></p>\r\n<p><a href="http://drgullo.org/">http://drgullo.org/</a></p>\r\n<p>Constipation might reduce your belly fat \r\n<a href="https://jillianteta.com/free-programs-education/">https://jillianteta.com/free-programs-education/</a></p>\r\n<ul>\r\n<li>stay hydrated to make bowel not to dry and make liver more suffer through constipation because liver is the main resource to lose  belly fat through beta oxidation</li>\r\n<li>Squati pati <a href="https://wakeup-world.com/2013/07/13/why-you-should-squat-for-better-digestive-health/">click here</a></li>\r\n<li>Probiotics when gut feels wrong, but for normal people more veggies, fermented foods is enough</li>\r\n<li>Eating slowly ( Reduces over consumption, helps digestive track breakdown food )</li>\r\n</ul>\r\n<p>5 Obesogens: Artificial Chemicals That Make You Fat</p>\r\n<ul>\r\n<li>Avoid foods and beverages that have been stored in plastic containers.</li>\r\n<li>Use stainless steel or quality aluminum water bottles instead of plastic.</li>\r\n<li>Do not feed your babies from plastic bottles. Use glass bottles instead.</li>\r\n<li>Instead of non-stick cookware, use cast iron or stainless steel.</li>\r\n<li>Use organic, natural cosmetics.</li>\r\n</ul>\r\n<p>When stressed :</p>\r\n<ul>\r\n<li>Instead of wine or something try some exercise, pushup </li>\r\n<li>Instead of going for that shit ass snack, go for exercise, walk</li>\r\n<li>Stop buying oreo's </li>\r\n<li>If you want to eat sweet go for fructose (fruits, strawberries, blueberries)\r\nRef: <a href="https://www.davidwygant.com/podcast/episode-381-lose-weight-today/?inf_contact_key=2f9f9b133d42c28c576af065359e10a2b51696e69e7fca6799d1b117262e893a">https://www.davidwygant.com/podcast/episode-381-lose-weight-today/?inf_contact_key=2f9f9b133d42c28c576af065359e10a2b51696e69e7fca6799d1b117262e893a</a></li>\r\n<li>Cauliflower pizza instead of something brag </li>\r\n<li>No carbs at night.</li>\r\n<li>Save only for weekends - wine</li>\r\n</ul>\r\n<p>When stressed: (<a href="http://venus.farewellfaddiets.com">http://venus.farewellfaddiets.com</a>) (Naturally decrease your cortisol levels)</p>\r\n<ul>\r\n<li>Cortisol goes high, and so sugar goes high and increase weight gain</li>\r\n<li>More authentic connection with respect to your spouse, less cortisol. (Good hug can decrease your cortisol levels) </li>\r\n<li>Take some big deep breaths, decrease your cortisol levels when you are in stress.</li>\r\n<li>Before go to bed. Start writing 5 things what you are greatful (Gratitude)</li>\r\n<li>Insulin resistance (Diabetes )</li>\r\n<li>Cravings increase. </li>\r\n<li>Cortisol goes back down - adrinal gland. </li>\r\n<li>Listening music, meditate can decrease your cortisol levels</li>\r\n<li>Feedback mechanism (Hypotelamus, adrenal level) </li>\r\n</ul>\r\n<p>For every Diet there's equal binge\r\n<a href="https://www.kristenpoczulp.com/free-report.html">https://www.kristenpoczulp.com/free-report.html</a></p>\r\n<p>Lisa report\r\nPhase 1: Laying the Foundation:\r\nDetermine your starting point and your readiness for change (Don’t feel 100% ready? Don’t worry! I’ll meet you where you are and guide you on your path).\r\nDisarm the negative voice in your head that’s been sabotaging your weight loss efforts and holding you back in all areas of your life.\r\nSet yourself up for a series of small (but essential) victories that will create the momentum you need to complete and sustain your weight loss goals!</p>\r\n<p>Phase 2: Thinking Yourself Thin\r\nIdentify and eliminate perfectionism because none of us are perfect, and beating ourselves up for not being so is a recipe for disaster. It’s perfectionism that leads to weight gain and poor self-esteem. So we’ll kick it to the curb!\r\nIdentify and eliminate blocks and create the mindset needed to lose weight and feel amazing for your whole life.\r\nCreate quick and easy rituals that jump-start your metabolism and energy every single day for maximum results.</p>\r\n<p>Phase 3: Building the Food Framework:\r\nCreate and follow a real-food plan designed to make healthy eating simple, and automatic (without being based on sacrifice or requiring ingredients that no real kitchen actually has!)\r\nHelp you become a mindful eater so you can stop eating when you’re physically satisfied and establish healthy portion control. You’ll learn your own “body language”- the messages your body sends and how to interpret them.\r\nLearn how to identify the difference between physical hunger and emotional hunger.</p>\r\n<p>Phase 4: Developing the Exercise Plan:\r\nChoose the right exercise plan for you that fits into your busy schedule.\r\nSTOP thinking you need to spend hours at the gym. You’ll be shocked at how easy this really is and how little is actually required.\r\nImplement a fun and do-able exercise plan that you’ll actually stick to! This is about designing a plan that doesn’t feel like work and is a seamless addition to your current schedule and lifestyle.</p>\r\n<p>Phase 5: Staying on Track\r\nDive deep to uncover the root causes of emotional eating and diet “relapse.”\r\nIncorporate planned indulgences into your otherwise healthy diet, instead of depriving yourself (which we all know doesn’t work long-term).\r\nGet into your grocery groove! Ensuring that your shopping habits don’t get in the way of your weight loss.\r\nPhase 6: Living in Your Dream Bod!\r\nIdentify the people in your life that will support you in maintaining your new, healthy, and empowered life!\r\nImplement follow-through strategies to support you in all aspects of your life.</p>\r\n<p>Dr walsh fat is not your fault\r\n1) Cortisol\r\nWhy someone may "hypothelamus" - appetite, talks with petutary gland</p>\r\n<ul>\r\n<li>(told from crh) adrenal gland - through acth (with receptor) from hypothelamus. hypothelamus receives signal from neurotransmitter, immune system, molecules &amp; harmones low cortisol -&gt; means adrenal glands are told to not make cortisol. (hypothelamus through crh sends signal pituatary gland -&gt; acth from pituatary glad to adrenal gland)If pituatary gland not functioning properly then pituatary gland cant send signal to adrenals</li>\r\n<li>Adsense disease (autoimmune condition that sophs cortisol). Kushine(Autoimmune condition that enhances cortisol at adrenal glands)</li>\r\n<li>Waking up at night, cravings for sugar -cortisol evaluation</li>\r\n<li>Cholesterol : Adrenal glands takes cholesterol and with some conversions (Pregmentalone(projesterone(aldestrone, cortisol), dhea(andro(testosterone(estragen, diht))))(is limited) - enzyme)</li>\r\n<li>pregnetalone can be converted more into cortisol and leads to dhea enzymes low.(sex harmones low)</li>\r\n<li>Adrenal glands has receptors for interlucin 6 which might signals adrenalin glands to signal raise cortisol</li>\r\n<li>if DHEA is low cortisol is high then pregnetalone goes left side more.\r\n*</li>\r\n<li>Cortisol goes from high to low (cortisol sardium level) from morning to evening</li>\r\n<li>melatonin goes from low to high which is inverse of cortisol.</li>\r\n</ul>\r\n<p>How to check if cortisol ?</p>\r\n<ul>\r\n<li>Symptoms (forms)</li>\r\n<li>Salavary harmone test profile (Free cortisol test) \r\n[ All day cortisol low = blood sugar issues &amp; hard time getting out of bed ,\r\nAll day cortisol high = blood sugar issues &amp; hard time sleeping at night &amp; easily get out of bed but feels not having enough sleep at night,\r\nAltered circadian rhythm = high at night . Something causing this issue with brain . Forget last night things but can remember long times = Hippacampus damage ]</li>\r\n</ul>\r\n<p>What to do -\r\nBelow supplements for 30 days and check if cortisol is normal and retest without below supplements and if fixed then it fixed permanently.\r\n high cortisol = Phosphotelin serum, Adaptogens, Potassium in dosage \r\n low cortisol = Licorice root, Adaptogens, Na+, \r\n Rhythm cortisol (altered circadian rhythm) = Phosphotelin serum, Acetel coa, Adaptogens, Exercise (Aerobic/ Anaerobic)</p>\r\n<p>Refer : Eldastrone </p>\r\n<p><strong>Timferris weight loss technique: </strong>\r\n<a href="http://chadfowler.com/life,/weightloss/2011/03/15/the-harajuku-moment.html">Harajuku movement</a></p>\r\n<p><strong>Low carb diets not work for you </strong>\r\n<a href="https://www.precisionnutrition.com/low-carb-diets">https://www.precisionnutrition.com/low-carb-diets</a></p>\r\n<p><strong>Russian Kettleball swing with occams protocol method </strong> Do research 4hourbody</p>\r\n<p>1) Diet \r\n2) Exercise - Toxicity, (Lift weights - Cellular function), neurotransmitters (Mood), Insulin\r\n3) Symptoms \r\n4) Testing ( Good quality blood chemistry , Salivary hormone , Stool Testing, Intestinal permeability, Organic acid test \r\n5) [Mind, Body]Visualize / Meditating [Brain, stress]\r\n6) Sleep\r\n7) 4R Program (Elimination diet - [Cortisol, immune system, insulin], Anti Microbial- [Liver], HCL &amp; Enzymes [Cellular] , Repair[Immune, Thyroid, Hormones], Probiotics - [Immune, Hormones]) \r\n8) Clean - [Non toxic] air purifier, water purifier, Organic foods, personal care products, Liver/Gallblader function\r\n9) Glutathione ( Intra cellular antioxidant )\r\n10) Neuro Transmitters </p>\r\n<p>Diet without exercise =&gt; You'll lose weight and muscle.\r\nExercise without diet =&gt; You'll probably healthier but not much weight loss</p>\r\n<p><strong>Supplements</strong>\r\n<em>No stimulant experience:</em> Take caffeine (100 – 400 mg) until tolerance builds up, then add synephrine (two doses of 10 mg each) and white willow extract (two doses of 90 mg of salicin each). People not used to caffeine should start at the low end of the dosage range. After synephrine and white willow extract are added, the caffeine dose should be changed to two doses of 150 – 200 mg each.\r\n<em>Stimulant experience:</em> Take caffeine (two doses of 200 mg each) and synephrine (two doses of 20 mg each), with white willow extract (two doses, each of 90\r\nmg of salicin). Maintain this supplement protocol for a week before introducing yohimbine (2.5 mg, twice a day, increasing to 2.7 mg, twice a day, over the course of a week). Add Coleus forskohlii if 7.5 mg of daily yohimbine causes no significant side effects.</p>\r\n	\N	\N	\N
+38	Personal Branding			 Personal Brand => Own IDEA\r\n\r\nBuild a following \r\nBuild a trust\r\nMake sure you recognizable\r\nUnderstand growth patterns\r\n-> snap/email/insta/youtube - > Recognizability () -> Trust in niece -> Create content -> Make it viral -> Own/referral product -> \r\nGetting rich comes from combination of how to save money and how to grow/invest/compoud dmoney \r\nFor shy/introvert people => develop other people who arent shy\r\n\r\nHow to get followers => 25 cognitive biases explains everything (Reward bias => people post context which rewards them)\r\n(ability to tell a story that hits on reward, association, availability of brain) How to tell story\r\nPeople watch stories if trust pattern evolves. You pay atention\r\n	2018-09-09 17:22:11.081152	2018-09-09 17:22:11.081152	0	personal-branding	\N	<p> Personal Brand =&gt; Own IDEA</p>\r\n<p>Build a following \r\nBuild a trust\r\nMake sure you recognizable\r\nUnderstand growth patterns\r\n-&gt; snap/email/insta/youtube - &gt; Recognizability () -&gt; Trust in niece -&gt; Create content -&gt; Make it viral -&gt; Own/referral product -&gt; \r\nGetting rich comes from combination of how to save money and how to grow/invest/compoud dmoney \r\nFor shy/introvert people =&gt; develop other people who arent shy</p>\r\n<p>How to get followers =&gt; 25 cognitive biases explains everything (Reward bias =&gt; people post context which rewards them)\r\n(ability to tell a story that hits on reward, association, availability of brain) How to tell story\r\nPeople watch stories if trust pattern evolves. You pay atention</p>\r\n	\N	\N	\N
+39	67 steps 29thvideo			[{"type":"text","label":"How you've been squandering your time ?","className":"form-control","name":"text-1536629682276","subtype":"text"},{"type":"text","label":"What knowledge should you embrase ? name two or three that you procrastinate and start learning from it&nbsp;","className":"form-control","name":"text-1536629636376","subtype":"text"},{"type":"text","label":"What are you gonna do to slow down entrophy ?&nbsp;<br>Could be working out , could be little bit better","className":"form-control","name":"text-1536629634715","subtype":"text"}]	2018-09-11 01:36:08.520126	2018-09-11 01:36:08.520126	2	67-steps-29thvideo	\N	<div class="rendered-form"><div class="fb-text form-group field-text-1536629682276"><label for="text-1536629682276" class="fb-text-label">How you've been squandering your time ?</label><input type="text" class="form-control" name="text-1536629682276" id="text-1536629682276"></div><div class="fb-text form-group field-text-1536629636376"><label for="text-1536629636376" class="fb-text-label">What knowledge should you embrase ? name two or three that you procrastinate and start learning from it&nbsp;</label><input type="text" class="form-control" name="text-1536629636376" id="text-1536629636376"></div><div class="fb-text form-group field-text-1536629634715"><label for="text-1536629634715" class="fb-text-label">What are you gonna do to slow down entrophy ?&nbsp;<br>Could be working out , could be little bit better</label><input type="text" class="form-control" name="text-1536629634715" id="text-1536629634715"></div></div>	\N	\N	\N
+40	Renaissance Man			16th card 67steps\r\n1) Learn hindi\r\n2) Learn music\r\n3) Learn history	2018-09-14 02:58:16.719822	2018-09-14 02:58:16.719822	1	renaissance-man	\N		\N	\N	\N
+\.
+
+
+--
+-- Name: cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.cards_id_seq', 40, true);
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.categories (id, name, color, created_at, updated_at) FROM stdin;
+1	health		2018-02-10 17:15:08.991328	2018-02-10 17:15:08.991328
+2	wealth		2018-02-10 17:15:16.59253	2018-02-10 17:15:16.59253
+3	social		2018-02-10 17:15:25.923213	2018-02-10 17:15:25.923213
+4	happiness		2018-02-10 17:15:33.660508	2018-02-10 17:15:33.660508
+5	broad	yellow	2018-03-10 02:59:33.404287	2018-03-10 02:59:33.404287
+6	website-growth	orange	2018-03-12 09:49:10.191403	2018-03-12 09:49:10.191403
+\.
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.categories_id_seq', 6, true);
+
+
+--
+-- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.events (id, name, start_time, recurring, created_at, updated_at, end_time, card_id) FROM stdin;
+1	DAILY EVENT	2018-02-13 00:00:00	---\n:validations: {}\n:rule_type: IceCube::DailyRule\n:interval: 1\n	2018-02-13 17:24:05.37685	2018-02-13 17:24:05.37685	\N	\N
+2	weekly schedule	\N	---\n:validations: {}\n:rule_type: IceCube::DailyRule\n:interval: 1\n	2018-02-26 15:39:58.226519	2018-02-26 15:39:58.226519	\N	\N
+\.
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.events_id_seq', 2, true);
+
+
+--
+-- Data for Name: friendly_id_slugs; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.friendly_id_slugs (id, slug, sluggable_id, sluggable_type, scope, created_at) FROM stdin;
+\.
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.friendly_id_slugs_id_seq', 1, false);
+
+
+--
+-- Data for Name: new_surveys; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.new_surveys (id, card_id, question_id, answer, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: new_surveys_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.new_surveys_id_seq', 1, false);
+
+
+--
+-- Data for Name: programs; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.programs (id, name, period, created_at, updated_at, active) FROM stdin;
+1	Fit body healthy lifestyle		2018-02-06 16:51:14.314623	2018-02-06 16:51:14.314623	f
+2	testing program		2018-02-26 15:40:17.560996	2018-02-26 15:40:17.560996	f
+3	Morning Ritual		2018-02-26 16:01:41.076996	2018-02-26 16:01:41.076996	f
+4	Website Improvement		2018-03-12 10:02:55.082039	2018-03-12 10:02:55.082039	f
+5	Bit slow eating habit		2018-03-13 17:30:02.3155	2018-03-13 17:30:02.3155	f
+6	Weight gain		2018-07-09 15:57:06.353622	2018-07-09 15:57:06.353622	f
+\.
+
+
+--
+-- Name: programs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.programs_id_seq', 6, true);
+
+
+--
+-- Data for Name: programs_users; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.programs_users (program_id, user_id) FROM stdin;
+1	1
+2	1
+2	2
+3	2
+3	1
+1	2
+4	1
+5	1
+2	3
+6	4
+6	2
+6	3
+6	1
+\.
+
+
+--
+-- Data for Name: progresses; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.progresses (id, user_id, card_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: progresses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.progresses_id_seq', 1, false);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.schema_migrations (version) FROM stdin;
+20180113151906
+20180113170500
+20180116101436
+20180118053805
+20180118060205
+20180118064834
+20180118092650
+20180118162045
+20180119020709
+20180121125440
+20180206144218
+20180206145928
+20180206151420
+20180206162045
+20180210170055
+20180213113252
+20180222102840
+20180222123039
+20180227061626
+20180321113423
+20180429114210
+20180608112751
+20180608112752
+20180608112753
+20180608112754
+20180608112755
+20180608112756
+20180608112757
+20180628160013
+20180724153034
+\.
+
+
+--
+-- Data for Name: stats; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.stats (id, user_id, card_id, created_at, updated_at) FROM stdin;
+1	1	12	2018-02-26 15:40:57.14508	2018-02-26 15:40:57.14508
+2	1	13	2018-02-27 00:18:10.004977	2018-02-27 00:18:10.004977
+3	4	33	2018-07-10 01:47:47.04319	2018-07-10 01:47:47.04319
+4	1	15	2018-07-16 07:53:17.756351	2018-07-16 07:53:17.756351
+\.
+
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.stats_id_seq', 4, true);
+
+
+--
+-- Data for Name: survey_answers; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.survey_answers (id, attempt_id, question_id, option_id, correct, created_at, updated_at, option_text, option_number, predefined_value_id) FROM stdin;
+\.
+
+
+--
+-- Name: survey_answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.survey_answers_id_seq', 1, false);
+
+
+--
+-- Data for Name: survey_attempts; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.survey_attempts (id, participant_type, participant_id, survey_id, winner, score) FROM stdin;
+\.
+
+
+--
+-- Name: survey_attempts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.survey_attempts_id_seq', 1, false);
+
+
+--
+-- Data for Name: survey_options; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.survey_options (id, question_id, weight, text, correct, created_at, updated_at, locale_text, options_type_id, head_number) FROM stdin;
+\.
+
+
+--
+-- Name: survey_options_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.survey_options_id_seq', 1, false);
+
+
+--
+-- Data for Name: survey_predefined_values; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.survey_predefined_values (id, head_number, name, locale_name, question_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: survey_predefined_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.survey_predefined_values_id_seq', 1, false);
+
+
+--
+-- Data for Name: survey_questions; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.survey_questions (id, text, created_at, updated_at, section_id, head_number, description, locale_text, locale_head_number, locale_description, questions_type_id, mandatory) FROM stdin;
+\.
+
+
+--
+-- Name: survey_questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.survey_questions_id_seq', 1, false);
+
+
+--
+-- Data for Name: survey_sections; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.survey_sections (id, head_number, name, description, survey_id, created_at, updated_at, locale_head_number, locale_name, locale_description) FROM stdin;
+\.
+
+
+--
+-- Name: survey_sections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.survey_sections_id_seq', 1, false);
+
+
+--
+-- Data for Name: survey_surveys; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.survey_surveys (id, name, description, attempts_number, finished, active, created_at, updated_at, locale_name, locale_description) FROM stdin;
+\.
+
+
+--
+-- Name: survey_surveys_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.survey_surveys_id_seq', 1, false);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: sid
+--
+
+COPY public.users (id, created_at, updated_at, email, encrypted_password, confirmation_token, remember_token, provider, uid, oauth_token, oauth_expires_at, name, gc_session_id, access_token, expires_in) FROM stdin;
+2	2018-02-25 15:18:37.734789	2018-02-25 15:19:33.784665	cop.teja@gmail.com	$2a$10$zk3hzTTPJuSJnCVdOhS75OX6YsMhRVm6jxYAve0Fn/bAeQpodDAai	\N	ae730ed0e91383fd7c3b63966a448a929e0adee4	\N	\N	\N	\N	\N	\N	\N	\N
+3	2018-03-15 06:45:16.267047	2018-03-21 05:22:43.439452	sidtri18@gmail.com	$2a$10$7YGpTpcB2mQRYc5m2PBwouGXskkhDFHo.xDJQWCvi/bZxCnaODhjG	\N	0a2b17e490f3a13dd75e1d7617ebe46c1095a0d8	\N	\N	\N	\N	\N	\N	\N	\N
+4	2018-07-09 15:52:12.021223	2018-07-11 05:22:42.644828	97anki29tha@gmail.com	$2a$10$MP1CxpUXPrcoRl3tfZOEb.rlVKf9fDDxpcfALROg.cjXUuwCMIIBS	\N	9d185443803facadd6e5650ee0f167263a5c9be9	\N	\N	\N	\N	\N	\N	\N	\N
+1	2018-02-05 16:46:32.303222	2018-07-16 07:54:47.137444	koolspy.siddhu@gmail.com	$2a$10$HfQKCoHDdnpzh1Us34eAY.mM3aNgmshjMhYVrHvjV5qo.jqr38Mbm		a149d0846e5c6ce8d19780ef22069a3cae823849	\N	\N	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sid
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 4, true);
+
+
+--
+-- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: card_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT card_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cards_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.cards
+    ADD CONSTRAINT cards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs
+    ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: new_surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.new_surveys
+    ADD CONSTRAINT new_surveys_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: programs_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.programs
+    ADD CONSTRAINT programs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: progresses_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.progresses
+    ADD CONSTRAINT progresses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: stats_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.stats
+    ADD CONSTRAINT stats_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_answers
+    ADD CONSTRAINT survey_answers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_attempts_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_attempts
+    ADD CONSTRAINT survey_attempts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_options_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_options
+    ADD CONSTRAINT survey_options_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_predefined_values_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_predefined_values
+    ADD CONSTRAINT survey_predefined_values_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_questions
+    ADD CONSTRAINT survey_questions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_sections_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_sections
+    ADD CONSTRAINT survey_sections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.survey_surveys
+    ADD CONSTRAINT survey_surveys_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_card_templates_on_card_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_card_templates_on_card_id ON public.card_templates USING btree (card_id);
+
+
+--
+-- Name: index_card_templates_on_event_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_card_templates_on_event_id ON public.card_templates USING btree (event_id);
+
+
+--
+-- Name: index_card_templates_on_program_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_card_templates_on_program_id ON public.card_templates USING btree (program_id);
+
+
+--
+-- Name: index_cards_on_category_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_cards_on_category_id ON public.cards USING btree (category_id);
+
+
+--
+-- Name: index_cards_on_program_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_cards_on_program_id ON public.cards USING btree (program_id);
+
+
+--
+-- Name: index_events_on_card_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_events_on_card_id ON public.events USING btree (card_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON public.friendly_id_slugs USING btree (slug, sluggable_type);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON public.friendly_id_slugs USING btree (slug, sluggable_type, scope);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON public.friendly_id_slugs USING btree (sluggable_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON public.friendly_id_slugs USING btree (sluggable_type);
+
+
+--
+-- Name: index_new_surveys_on_card_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_new_surveys_on_card_id ON public.new_surveys USING btree (card_id);
+
+
+--
+-- Name: index_programs_users_on_program_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_programs_users_on_program_id ON public.programs_users USING btree (program_id);
+
+
+--
+-- Name: index_programs_users_on_user_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_programs_users_on_user_id ON public.programs_users USING btree (user_id);
+
+
+--
+-- Name: index_progresses_on_card_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_progresses_on_card_id ON public.progresses USING btree (card_id);
+
+
+--
+-- Name: index_progresses_on_user_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_progresses_on_user_id ON public.progresses USING btree (user_id);
+
+
+--
+-- Name: index_stats_on_card_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_stats_on_card_id ON public.stats USING btree (card_id);
+
+
+--
+-- Name: index_stats_on_user_id; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_stats_on_user_id ON public.stats USING btree (user_id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- Name: index_users_on_remember_token; Type: INDEX; Schema: public; Owner: sid
+--
+
+CREATE INDEX index_users_on_remember_token ON public.users USING btree (remember_token);
+
+
+--
+-- Name: fk_rails_0226d2129f; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.new_surveys
+    ADD CONSTRAINT fk_rails_0226d2129f FOREIGN KEY (card_id) REFERENCES public.cards(id);
+
+
+--
+-- Name: fk_rails_4612ac4517; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.progresses
+    ADD CONSTRAINT fk_rails_4612ac4517 FOREIGN KEY (card_id) REFERENCES public.cards(id);
+
+
+--
+-- Name: fk_rails_48b6ea5248; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT fk_rails_48b6ea5248 FOREIGN KEY (card_id) REFERENCES public.cards(id);
+
+
+--
+-- Name: fk_rails_54bb96a067; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.cards
+    ADD CONSTRAINT fk_rails_54bb96a067 FOREIGN KEY (program_id) REFERENCES public.programs(id);
+
+
+--
+-- Name: fk_rails_6471e1da11; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.stats
+    ADD CONSTRAINT fk_rails_6471e1da11 FOREIGN KEY (card_id) REFERENCES public.cards(id);
+
+
+--
+-- Name: fk_rails_68fbbb4be8; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT fk_rails_68fbbb4be8 FOREIGN KEY (program_id) REFERENCES public.programs(id);
+
+
+--
+-- Name: fk_rails_70c9446f0d; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.cards
+    ADD CONSTRAINT fk_rails_70c9446f0d FOREIGN KEY (category_id) REFERENCES public.categories(id);
+
+
+--
+-- Name: fk_rails_9e94901167; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.stats
+    ADD CONSTRAINT fk_rails_9e94901167 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: fk_rails_adcb2f4826; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT fk_rails_adcb2f4826 FOREIGN KEY (event_id) REFERENCES public.events(id);
+
+
+--
+-- Name: fk_rails_b39701cbc6; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT fk_rails_b39701cbc6 FOREIGN KEY (card_id) REFERENCES public.cards(id);
+
+
+--
+-- Name: fk_rails_bb5f2bd374; Type: FK CONSTRAINT; Schema: public; Owner: sid
+--
+
+ALTER TABLE ONLY public.progresses
+    ADD CONSTRAINT fk_rails_bb5f2bd374 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
